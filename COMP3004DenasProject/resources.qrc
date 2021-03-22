@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>images/arrowUp.png</file>
+        <file>images/down.png</file>
+        <file>images/left.png</file>
+        <file>images/right.png</file>
+        <file>images/menuButton.png</file>
+        <file>images/powerButton.jpg</file>
+        <file>images/returnButton.png</file>
+    </qresource>
+</RCC>
