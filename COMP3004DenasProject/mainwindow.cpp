@@ -44,5 +44,6 @@ void MainWindow::on_powerIncrease_2_clicked()
     qDebug() << "Menu option: " <<ui->menu->currentItem()->text() << " has been clicked";
     if(ui->menu->currentItem()->text() == "Programs"){
         qDebug() << "True";
+
     }
 }
