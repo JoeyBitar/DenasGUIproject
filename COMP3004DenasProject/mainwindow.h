@@ -21,6 +21,8 @@ private slots:
 
     void on_Down_clicked();
 
+    void on_powerIncrease_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
