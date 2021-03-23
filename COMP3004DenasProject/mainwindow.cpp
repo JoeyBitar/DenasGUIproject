@@ -11,15 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //connect(ui->pushButton_7, SIGNAL(clicked()), ui->listWidget,
            // SLOT(clear()));
-
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
 
 
 void MainWindow::on_Up_clicked()
@@ -40,3 +37,4 @@ void MainWindow::on_Down_clicked()
         ui->menu->setCurrentRow(currentIndex+1);
     }
 }
+

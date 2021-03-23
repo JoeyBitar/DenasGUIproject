@@ -28,12 +28,14 @@ SOURCES += \
         controller.cpp \
         main.cpp \
         mainwindow.cpp \
-        recording.cpp
+        recording.cpp \
+        treatment.cpp
 
 HEADERS += \
         controller.h \
         mainwindow.h \
-        recording.h
+        recording.h \
+        treatment.h
 
 FORMS += \
         mainwindow.ui
