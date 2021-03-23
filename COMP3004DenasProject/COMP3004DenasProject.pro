@@ -30,6 +30,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         menu.cpp \
+        programmenu.cpp \
         recording.cpp \
         treatment.cpp
 
@@ -38,6 +39,7 @@ HEADERS += \
         frequencymenu.h \
         mainwindow.h \
         menu.h \
+        programmenu.h \
         recording.h \
         treatment.h
 
