@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         controller.cpp \
+        frequencymenu.cpp \
         main.cpp \
         mainwindow.cpp \
         menu.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
         controller.h \
+        frequencymenu.h \
         mainwindow.h \
         menu.h \
         recording.h \
