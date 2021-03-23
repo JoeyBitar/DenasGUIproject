@@ -35,8 +35,12 @@ SOURCES += \
         menu.cpp \
         programmenu.cpp \
         recording.cpp \
+        seventysevenhz.cpp \
+        sixtyhz.cpp \
+        tenhz.cpp \
         throat.cpp \
-        treatment.cpp
+        treatment.cpp \
+        twentyhz.cpp
 
 HEADERS += \
         allergy.h \
@@ -48,8 +52,12 @@ HEADERS += \
         menu.h \
         programmenu.h \
         recording.h \
+        seventysevenhz.h \
+        sixtyhz.h \
+        tenhz.h \
         throat.h \
-        treatment.h
+        treatment.h \
+        twentyhz.h
 
 FORMS += \
         mainwindow.ui
