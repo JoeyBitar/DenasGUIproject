@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         controller.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        recording.cpp
 
 HEADERS += \
         controller.h \
-        mainwindow.h
+        mainwindow.h \
+        recording.h
 
 FORMS += \
         mainwindow.ui
