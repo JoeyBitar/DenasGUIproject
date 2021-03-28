@@ -8,10 +8,10 @@ Treatment::Treatment(QObject *parent) : QObject(parent)
  */
 Treatment::Treatment(std::string programName, int powerLvl, int durationTime, int frequencyLvl)
 {
-    program                = programName;
-    power                  = powerLvl;
-    duration               = durationTime;
-    frequency              = frequencyLvl;
+    program    = programName;
+    power      = powerLvl;
+    duration   = durationTime;
+    frequency  = frequencyLvl;
 
     /*
      * Sets the duration of the timer to be durationTime long.
