@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <QTime>
 #include <string>
-
+#include <QDateTime>
 
 class Treatment : public QObject
 {
@@ -17,6 +17,7 @@ public:
     void startTimer();
     void pauseTimer();
     void stopTimer();
+    QString getTreatmentDurationTime();
 
 private slots:
     void decrementTimer();
@@ -24,6 +25,7 @@ private slots:
 private:
     QTimer* timerCaller;
     QTime timer;
+    QDateTime dateTime;
     std::string program;
     int power;
     int duration;
