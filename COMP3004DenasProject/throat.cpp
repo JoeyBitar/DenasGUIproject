@@ -1,6 +1,6 @@
 #include "throat.h"
 
-Throat::Throat()
+Throat::Throat() : Treatment("Throat",1,10,60)
 {
 
 }

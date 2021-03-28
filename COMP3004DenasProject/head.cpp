@@ -1,6 +1,6 @@
 #include "head.h"
 
-Head::Head()
+Head::Head() : Treatment("Head",1,5,60)
 {
 
 }

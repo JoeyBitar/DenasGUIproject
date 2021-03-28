@@ -1,6 +1,6 @@
 #include "allergy.h"
 
-Allergy::Allergy()
+Allergy::Allergy() : Treatment("Allergy",1,10,7710)
 {
 
 }
