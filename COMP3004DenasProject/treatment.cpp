@@ -54,7 +54,11 @@ QString Treatment::getTreatmentDurationTime(){
  */
 void Treatment::decrementTimer()
 {
-    //need to send a signal to update the ui with timer.toString("mm:ss")
+    /*
+     * need to send a signal to update the ui with timer.toString("mm:ss")
+     */
+    emit updateGUITimer(timer.toString("mm:ss"));
+
 
     timer = timer.addSecs(-1);
 

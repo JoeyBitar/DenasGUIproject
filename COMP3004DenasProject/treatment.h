@@ -14,13 +14,16 @@ class Treatment : public QObject
 public:
     explicit Treatment(QObject *parent = nullptr);
     Treatment(std::string,int,int,int);
-    void startTimer();
-    void pauseTimer();
-    void stopTimer();
-    QString getTreatmentDurationTime();
+    void startTimer();                              //Starts the treatment timer
+    void pauseTimer();                              //Pauses the treatment timer
+    void stopTimer();                               //Stops the treatment timer
+    QString getTreatmentDurationTime();             //Returns the duration time left
 
 private slots:
-    void decrementTimer();
+    void decrementTimer();                          //Decrements the treatment time every second.
+
+signals:
+    void updateGUITimer(QString);
 
 private:
     QTimer* timerCaller;
