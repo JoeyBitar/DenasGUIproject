@@ -59,7 +59,6 @@ void Treatment::decrementTimer()
      */
     emit updateGUITimer(timer.toString("mm:ss"));
 
-
     timer = timer.addSecs(-1);
 
     if(timer.toString("mm:ss") == "00:00"){
