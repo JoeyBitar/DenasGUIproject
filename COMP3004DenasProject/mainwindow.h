@@ -16,16 +16,15 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void connectTreatmentSignals();
 
 private slots:
 
     void on_Up_clicked();
-
     void on_Down_clicked();
-
-    void on_powerIncrease_2_clicked();
-
+    void on_ok_clicked();
     void turnOffDevice();
+    void updateTimer(QString);
 
 private:
     Ui::MainWindow *ui;
