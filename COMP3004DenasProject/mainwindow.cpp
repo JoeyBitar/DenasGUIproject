@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    control = new Controller(100);
+    connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice())); //the turnOffDevice turns off the device or pop-ups a message or something.
+
     //connect(ui->pushButton_7, SIGNAL(clicked()), ui->listWidget,
            // SLOT(clear()));
 }
@@ -15,7 +18,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 void MainWindow::on_Up_clicked()
 {
@@ -44,4 +46,12 @@ void MainWindow::on_powerIncrease_2_clicked()
         qDebug() << "True";
 
     }
+}
+
+void MainWindow::turnOffDevice()
+{
+
+    /*
+     * do something to either turn off device or pop up a message.
+     */
 }
