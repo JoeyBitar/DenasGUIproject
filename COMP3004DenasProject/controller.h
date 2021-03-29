@@ -25,8 +25,8 @@ private:
     bool checkIfBatteryIsZero();
     void updateBattery(int);
 
-    std::vector<Treatment> treatmentList;
-    std::vector<Recording> recordingList;
+    std::vector<Treatment*> treatmentList;
+    std::vector<Recording*> recordingList;
     int batteryLife;
     bool devicePower;
 
