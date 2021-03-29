@@ -5,6 +5,15 @@
 #include <treatment.h>
 #include <recording.h>
 #include <vector>
+#include <allergy.h>
+#include <head.h>
+#include <hypotonia.h>
+#include <throat.h>
+#include <seventysevenhz.h>
+#include <sixtyhz.h>
+#include <tenhz.h>
+#include <twentyhz.h>
+
 
 class Controller : public QObject
 {
@@ -12,6 +21,9 @@ class Controller : public QObject
 public:
     explicit Controller(QObject *parent = nullptr);
     Controller(int);
+    std::vector<Treatment*> treatmentList;
+    std::vector<Recording*> recordingList;
+
 
 signals:
     void requestTurnOffDevice();
@@ -25,8 +37,6 @@ private:
     bool checkIfBatteryIsZero();
     void updateBattery(int);
 
-    std::vector<Treatment*> treatmentList;
-    std::vector<Recording*> recordingList;
     int batteryLife;
     bool devicePower;
 

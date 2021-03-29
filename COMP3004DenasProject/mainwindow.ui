@@ -183,7 +183,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="powerIncrease">
+    <widget class="QPushButton" name="right">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -215,7 +215,7 @@
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="left">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -238,7 +238,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="powerIncrease_2">
+    <widget class="QPushButton" name="ok">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -257,7 +257,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="powerIncrease_3">
+    <widget class="QPushButton" name="right_2">
      <property name="geometry">
       <rect>
        <x>90</x>
