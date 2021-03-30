@@ -99,7 +99,7 @@
       <number>2</number>
      </property>
      <property name="currentRow">
-      <number>0</number>
+      <number>-1</number>
      </property>
      <item>
       <property name="text">
@@ -118,17 +118,17 @@
      </item>
      <item>
       <property name="text">
+       <string>History</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>Med</string>
       </property>
      </item>
      <item>
       <property name="text">
        <string>Screening</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Children</string>
       </property>
      </item>
      <item>
@@ -280,7 +280,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="powerIncrease_4">
+    <widget class="QPushButton" name="returnMenu">
      <property name="geometry">
       <rect>
        <x>150</x>
@@ -303,7 +303,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="powerIncrease_5">
+    <widget class="QPushButton" name="back">
      <property name="geometry">
       <rect>
        <x>20</x>

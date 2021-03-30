@@ -17,6 +17,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void connectTreatmentSignals();
+    void showPrograms();
+    void showFrequency();
+    void showHistory();
 
 private slots:
 
@@ -25,6 +28,7 @@ private slots:
     void on_ok_clicked();
     void turnOffDevice();
     void updateTimer(QString);
+    void on_returnMenu_clicked();
 
 private:
     Ui::MainWindow *ui;
