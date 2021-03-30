@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->menu->setCurrentRow(0);
+    ui->menu->setCurrentRow(0); // selects the "programs" menu by default
 
     control = new Controller(100); //Init controller
     connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice())); //the turnOffDevice turns off the device or pop-ups a message or something.
@@ -40,8 +40,7 @@ void MainWindow::showPrograms()
     ui->menu->addItem("Throad");
     ui->menu->addItem("Hypotonia");
     ui->menu->addItem("Head");
-    int currentIndex = ui->menu->currentRow();
-    ui->menu->setCurrentRow(currentIndex+1);
+    ui->menu->setCurrentRow(0);
 }
 
 void MainWindow::showFrequency()
@@ -51,6 +50,7 @@ void MainWindow::showFrequency()
     ui->menu->addItem("20Hz");
     ui->menu->addItem("60Hz");
     ui->menu->addItem("77Hz");
+    ui->menu->setCurrentRow(0);
 }
 
 void MainWindow::showHistory()
@@ -58,6 +58,7 @@ void MainWindow::showHistory()
     ui->menu->clear();
     ui->menu->addItem("View");
     ui->menu->addItem("Clear");
+    ui->menu->setCurrentRow(0);
 }
 
 void MainWindow::on_Up_clicked()
@@ -124,4 +125,5 @@ void MainWindow::on_returnMenu_clicked()
     ui->menu->addItem("History");
     ui->menu->addItem("Med");
     ui->menu->addItem("Screening");
+    ui->menu->setCurrentRow(0);
 }
