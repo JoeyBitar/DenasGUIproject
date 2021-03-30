@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->menu->setCurrentRow(0);
 
     control = new Controller(100); //Init controller
     connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice())); //the turnOffDevice turns off the device or pop-ups a message or something.
@@ -32,10 +33,38 @@ void MainWindow::connectTreatmentSignals()
     }
 }
 
+void MainWindow::showPrograms()
+{
+    ui->menu->clear();
+    ui->menu->addItem("Allergy");
+    ui->menu->addItem("Throad");
+    ui->menu->addItem("Hypotonia");
+    ui->menu->addItem("Head");
+    int currentIndex = ui->menu->currentRow();
+    ui->menu->setCurrentRow(currentIndex+1);
+}
+
+void MainWindow::showFrequency()
+{
+    ui->menu->clear();
+    ui->menu->addItem("10Hz");
+    ui->menu->addItem("20Hz");
+    ui->menu->addItem("60Hz");
+    ui->menu->addItem("77Hz");
+}
+
+void MainWindow::showHistory()
+{
+    ui->menu->clear();
+    ui->menu->addItem("View");
+    ui->menu->addItem("Clear");
+}
+
 void MainWindow::on_Up_clicked()
 {
     //int menuSize = ui->menu->count();
     int currentIndex = ui->menu->currentRow();
+    qDebug() << currentIndex;
     if (currentIndex - 1 >= 0){
         ui->menu->setCurrentRow(currentIndex-1);
     }
@@ -46,6 +75,7 @@ void MainWindow::on_Down_clicked()
     int menuSize = ui->menu->count();
     int currentIndex = ui->menu->currentRow();
     qDebug() << "SIZE" << menuSize;
+    qDebug() << currentIndex;
     if (currentIndex + 1 != menuSize){
         ui->menu->setCurrentRow(currentIndex+1);
     }
@@ -54,11 +84,13 @@ void MainWindow::on_Down_clicked()
 void MainWindow::on_ok_clicked()
 {
     if(ui->menu->currentItem()->text() == "Programs"){
-        ui->menu->clear();
-        ui->menu->addItem("Allergy");
-        ui->menu->addItem("Throad");
-        ui->menu->addItem("Hypotonia");
-        ui->menu->addItem("Head");
+        showPrograms();
+    }
+    else if(ui->menu->currentItem()->text() == "Frequency"){
+        showFrequency();
+    }
+    else if(ui->menu->currentItem()->text() == "History"){
+        showHistory();
     }
 }
 
@@ -82,4 +114,14 @@ void MainWindow::updateTimer(QString time)
      * ui->something and update the time using the time local variable
      */
     qDebug() << time;
+}
+
+void MainWindow::on_returnMenu_clicked()
+{
+    ui->menu->clear();
+    ui->menu->addItem("Programs");
+    ui->menu->addItem("Frequency");
+    ui->menu->addItem("History");
+    ui->menu->addItem("Med");
+    ui->menu->addItem("Screening");
 }
