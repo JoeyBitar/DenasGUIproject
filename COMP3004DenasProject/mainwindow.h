@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <treatment.h>
 #include <controller.h>
+#include <qlcdnumber.h>
+#include <string.h>
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +22,7 @@ public:
     void showPrograms();
     void showFrequency();
     void showHistory();
+    void showPowerLevel();
 
 private slots:
 
@@ -29,10 +32,12 @@ private slots:
     void turnOffDevice();
     void updateTimer(QString);
     void on_returnMenu_clicked();
+    void on_back_clicked();
 
 private:
     Ui::MainWindow *ui;
     Controller *control;
+    std::string prevMenu;
 };
 
 #endif // MAINWINDOW_H
