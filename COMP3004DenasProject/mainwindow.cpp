@@ -37,7 +37,7 @@ void MainWindow::showPrograms()
 {
     ui->menu->clear();
     ui->menu->addItem("Allergy");
-    ui->menu->addItem("Throad");
+    ui->menu->addItem("Throat");
     ui->menu->addItem("Hypotonia");
     ui->menu->addItem("Head");
     ui->menu->setCurrentRow(0);
@@ -58,6 +58,15 @@ void MainWindow::showHistory()
     ui->menu->clear();
     ui->menu->addItem("View");
     ui->menu->addItem("Clear");
+    ui->menu->setCurrentRow(0);
+}
+
+void MainWindow::showPowerLevel()
+{
+    ui->menu->clear();
+    for(int i = 1; i < 101; i++){
+        ui->menu->addItem(QString::number(i));
+    }
     ui->menu->setCurrentRow(0);
 }
 
@@ -84,14 +93,56 @@ void MainWindow::on_Down_clicked()
 
 void MainWindow::on_ok_clicked()
 {
+    qDebug() << ui->menu->currentItem()->text();
     if(ui->menu->currentItem()->text() == "Programs"){
         showPrograms();
+        prevMenu = "Main";
     }
     else if(ui->menu->currentItem()->text() == "Frequency"){
         showFrequency();
+        prevMenu = "Main";
     }
     else if(ui->menu->currentItem()->text() == "History"){
         showHistory();
+        prevMenu = "Main";
+    }
+    else if(ui->menu->currentItem()->text() == "View"){
+        prevMenu = "History";
+    }
+    else if(ui->menu->currentItem()->text() == "Clear"){
+        prevMenu = "History";
+    }
+    else if(ui->menu->currentItem()->text() == "Allergy"){
+        showPowerLevel();
+        prevMenu = "Allergy";
+    }
+    else if(ui->menu->currentItem()->text() == "Throat"){
+        showPowerLevel();
+        prevMenu = "Throat";
+    }
+    else if(ui->menu->currentItem()->text() == "Head"){
+        showPowerLevel();
+        prevMenu = "Head";
+    }
+    else if(ui->menu->currentItem()->text() == "Hypotonia"){
+        showPowerLevel();
+        prevMenu = "Hypotonia";
+    }
+    else if(ui->menu->currentItem()->text() == "10Hz"){
+        showPowerLevel();
+        prevMenu = "10Hz";
+    }
+    else if(ui->menu->currentItem()->text() == "20Hz"){
+        showPowerLevel();
+        prevMenu = "20Hz";
+    }
+    else if(ui->menu->currentItem()->text() == "60Hz"){
+        showPowerLevel();
+        prevMenu = "60Hz";
+    }
+    else if(ui->menu->currentItem()->text() == "77Hz"){
+        showPowerLevel();
+        prevMenu = "77Hz";
     }
 }
 
@@ -126,4 +177,27 @@ void MainWindow::on_returnMenu_clicked()
     ui->menu->addItem("Med");
     ui->menu->addItem("Screening");
     ui->menu->setCurrentRow(0);
+}
+
+void MainWindow::on_back_clicked()
+{
+    if(prevMenu == "Programs"){
+        showPrograms();
+    }
+    else if(prevMenu == "Frequency"){
+        showFrequency();
+    }
+    else if(prevMenu == "History"){
+        showHistory();
+    }
+    else if(prevMenu == "Main"){
+        on_returnMenu_clicked();
+    }
+    else if(prevMenu == "Allergy" || prevMenu == "Throat" || prevMenu == "Head" || prevMenu == "Hypotonia"){
+        showPrograms();
+    }
+    else if(prevMenu == "10Hz" || prevMenu == "20Hz" || prevMenu == "60Hz" || prevMenu == "77Hz"){
+        showFrequency();
+    }
+    prevMenu = "Main";
 }
