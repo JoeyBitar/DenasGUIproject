@@ -33,6 +33,28 @@ void MainWindow::connectTreatmentSignals()
     }
 }
 
+enum string_code{
+    eAllergy,
+    eThroat,
+    eHypotonia,
+    eHead,
+    e10Hz,
+    e20Hz,
+    e60Hz,
+    e77Hz
+};
+
+string_code hash(std::string const& str){
+    if (str == "Allergy") return eAllergy;
+    if (str == "Throat") return eThroat;
+    if (str == "Hypotonia") return eHypotonia;
+    if (str == "Head") return eHead;
+    if (str == "10Hz") return e10Hz;
+    if (str == "20Hz") return e20Hz;
+    if (str == "60Hz") return e60Hz;
+    if (str == "77Hz") return e77Hz;
+}
+
 void MainWindow::showPrograms()
 {
     ui->menu->clear();
@@ -144,6 +166,60 @@ void MainWindow::on_ok_clicked()
         showPowerLevel();
         prevMenu = "77Hz";
     }
+    else if(ui->menu->currentItem()->text().toInt()){
+        qDebug() << "Selected Power Level " << ui->menu->currentItem()->text();
+        int powerlevel = ui->menu->currentItem()->text().toInt();
+        switch(hash(prevMenu)){
+            case eAllergy:
+                qDebug() << "Running Allergy at power level " << powerlevel;
+                control->treatmentList[0]->startTimer();
+                ui->menu->clear();
+                break;
+
+            case eThroat:
+                 qDebug() << "Running Throat at power level " << powerlevel;
+                 control->treatmentList[3]->startTimer();
+                 ui->menu->clear();
+                break;
+
+            case eHead:
+                 qDebug() << "Running Head at power level " << powerlevel;
+                 control->treatmentList[1]->startTimer();
+                 ui->menu->clear();
+                break;
+
+            case eHypotonia:
+                 qDebug() << "Running Hypotonia at power level " << powerlevel;
+                 control->treatmentList[2]->startTimer();
+                 ui->menu->clear();
+                break;
+
+            case e10Hz:
+                 qDebug() << "Running 10Hz at power level " << powerlevel;
+                 control->treatmentList[6]->startTimer();
+                 ui->menu->clear();
+
+                break;
+
+            case e20Hz:
+                 qDebug() << "Running 20Hz at power level " << powerlevel;
+                 control->treatmentList[7]->startTimer();
+                 ui->menu->clear();
+                break;
+
+            case e60Hz:
+                 qDebug() << "Running 60Hz at power level " << powerlevel;
+                 control->treatmentList[5]->startTimer();
+                 ui->menu->clear();
+                break;
+
+            case e77Hz:
+                 qDebug() << "Running 77Hz at power level " << powerlevel;
+                 control->treatmentList[4]->startTimer();
+                 ui->menu->clear();
+                break;
+        }
+    }
 }
 
 /*
@@ -165,12 +241,22 @@ void MainWindow::updateTimer(QString time)
     /*
      * ui->something and update the time using the time local variable
      */
+
+
+    QString limit = "00:00";
+    ui->timer->setText(time);
+    if (time == limit){
+        qDebug() << "Timer Expired";
+        ui->timer->clear();
+        on_back_clicked();
+    }
     qDebug() << time;
 }
 
 void MainWindow::on_returnMenu_clicked()
 {
     ui->menu->clear();
+    ui->timer->clear();
     ui->menu->addItem("Programs");
     ui->menu->addItem("Frequency");
     ui->menu->addItem("History");
@@ -181,6 +267,7 @@ void MainWindow::on_returnMenu_clicked()
 
 void MainWindow::on_back_clicked()
 {
+    ui->timer->clear();
     if(prevMenu == "Programs"){
         showPrograms();
     }

@@ -41,6 +41,7 @@ void Treatment::stopTimer()
     timerCaller->stop();
 }
 
+
 /*
  * Returns the duration time of the treatment.
  * Will be used for the recording history.
@@ -61,7 +62,7 @@ void Treatment::decrementTimer()
 
     timer = timer.addSecs(-1);
 
-    if(timer.toString("mm:ss") == "00:00"){
+    if(timer.toString("mm:ss") == "59:59"){
         //Need to send a signal to the GUI indicating that the treatment is over.
         stopTimer();
     }
