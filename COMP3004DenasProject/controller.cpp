@@ -26,6 +26,7 @@ Controller::Controller(int battery)
 bool Controller::checkIfBatteryIsZero()
 {
     if(batteryLife <= 0){
+        stopTimer();
         emit requestTurnOffDevice();
         return true;
     }
@@ -46,3 +47,9 @@ void Controller::updateBattery(int p)
     emit changeGUIBattery(batteryLife);
 }
 
+void Controller::stopTimer()
+{
+    for(unsigned long i = 0; i < treatmentList.size(); i++){
+        treatmentList[i]->stopTimer();
+     }
+}

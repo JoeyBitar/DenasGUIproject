@@ -15,6 +15,7 @@
 #include <twentyhz.h>
 
 
+
 class Controller : public QObject
 {
     Q_OBJECT
@@ -24,6 +25,7 @@ public:
     std::vector<Treatment*> treatmentList;
     std::vector<Recording*> recordingList;
     void connectTreatmentSignals();
+    void stopTimer();
 
 
 signals:
