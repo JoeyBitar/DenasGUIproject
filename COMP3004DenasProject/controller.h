@@ -15,6 +15,7 @@
 #include <twentyhz.h>
 
 
+
 class Controller : public QObject
 {
     Q_OBJECT
