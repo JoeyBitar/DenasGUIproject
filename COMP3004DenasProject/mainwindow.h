@@ -33,6 +33,7 @@ private slots:
     void updateTimer(QString);
     void on_returnMenu_clicked();
     void on_back_clicked();
+    void updateBattery(int);
 
 private:
     Ui::MainWindow *ui;

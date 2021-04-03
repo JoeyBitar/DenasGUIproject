@@ -23,11 +23,15 @@ public:
     Controller(int);
     std::vector<Treatment*> treatmentList;
     std::vector<Recording*> recordingList;
+    void connectTreatmentSignals();
 
 
 signals:
     void requestTurnOffDevice();
     void changeGUIBattery(int);
+
+private slots:
+    void updateBattery(int);
 
 private:
     void addRecordings(Treatment);
@@ -35,7 +39,6 @@ private:
     void pauseTreatment();
     void calculateBatteryDrainage();
     bool checkIfBatteryIsZero();
-    void updateBattery(int);
 
     int batteryLife;
     bool devicePower;
