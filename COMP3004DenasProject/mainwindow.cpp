@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     control = new Controller(100); //Init controller
     connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice())); //the turnOffDevice turns off the device or pop-ups a message or something.
-    connect(control, SIGNAL(changeGUIBattery(int)),this, SLOT(updateBattery(int)));
+    connect(control, SIGNAL(changeGUIBattery(int)),this, SLOT(updateBattery(int))); //Connects the battery signal from Control class
     connectTreatmentSignals();
 
 
@@ -229,9 +229,7 @@ void MainWindow::on_ok_clicked()
  */
 void MainWindow::turnOffDevice()
 {
-    /*
-     * do something to either turn off device or pop up a message.
-     */
+    ui->timer->setText(":(");
 }
 
 /*

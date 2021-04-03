@@ -24,6 +24,7 @@ public:
     std::vector<Treatment*> treatmentList;
     std::vector<Recording*> recordingList;
     void connectTreatmentSignals();
+    void stopTimer();
 
 
 signals:
