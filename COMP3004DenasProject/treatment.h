@@ -18,12 +18,14 @@ public:
     void pauseTimer();                              //Pauses the treatment timer
     void stopTimer();                               //Stops the treatment timer
     QString getTreatmentDurationTime();             //Returns the duration time left
+    void setPower(int);
 
 private slots:
     void decrementTimer();                          //Decrements the treatment time every second.
 
 signals:
     void updateGUITimer(QString);
+    void sendBatteryUpdate(int);
 
 private:
     QTimer* timerCaller;

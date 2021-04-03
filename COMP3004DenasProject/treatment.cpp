@@ -59,11 +59,16 @@ void Treatment::decrementTimer()
      * need to send a signal to update the ui with timer.toString("mm:ss")
      */
     emit updateGUITimer(timer.toString("mm:ss"));
-
+    emit sendBatteryUpdate(power);
     timer = timer.addSecs(-1);
 
     if(timer.toString("mm:ss") == "59:59"){
         //Need to send a signal to the GUI indicating that the treatment is over.
         stopTimer();
     }
+}
+
+void Treatment::setPower(int p)
+{
+    power = p;
 }
