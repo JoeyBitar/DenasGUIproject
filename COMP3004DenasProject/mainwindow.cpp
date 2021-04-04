@@ -138,86 +138,109 @@ void MainWindow::on_ok_clicked()
     else if(ui->menu->currentItem()->text() == "Allergy"){
         showPowerLevel();
         prevMenu = "Allergy";
+        currTreatment = 0;
     }
     else if(ui->menu->currentItem()->text() == "Throat"){
         showPowerLevel();
         prevMenu = "Throat";
+        currTreatment = 3;
     }
     else if(ui->menu->currentItem()->text() == "Head"){
         showPowerLevel();
         prevMenu = "Head";
+        currTreatment = 1;
     }
     else if(ui->menu->currentItem()->text() == "Hypotonia"){
         showPowerLevel();
         prevMenu = "Hypotonia";
+        currTreatment = 2;
     }
     else if(ui->menu->currentItem()->text() == "10Hz"){
         showPowerLevel();
         prevMenu = "10Hz";
+        currTreatment = 6;
     }
     else if(ui->menu->currentItem()->text() == "20Hz"){
         showPowerLevel();
         prevMenu = "20Hz";
+        currTreatment = 7;
     }
     else if(ui->menu->currentItem()->text() == "60Hz"){
         showPowerLevel();
         prevMenu = "60Hz";
+        currTreatment = 5;
     }
     else if(ui->menu->currentItem()->text() == "77Hz"){
         showPowerLevel();
         prevMenu = "77Hz";
+        currTreatment = 4;
     }
     else if(ui->menu->currentItem()->text().toInt()){
         qDebug() << "Selected Power Level " << ui->menu->currentItem()->text();
         int powerlevel = ui->menu->currentItem()->text().toInt();
-        control->treatmentList[0]->setPower(powerlevel);
         switch(hash(prevMenu)){
             case eAllergy:
                 qDebug() << "Running Allergy at power level " << powerlevel;
-                control->treatmentList[0]->startTimer();
+                control->treatmentList[0]->setPower(powerlevel);
+                //control->treatmentList[0]->startTimer();
+                ui->timer->setText("Skin");
                 ui->menu->clear();
                 break;
 
             case eThroat:
                  qDebug() << "Running Throat at power level " << powerlevel;
-                 control->treatmentList[3]->startTimer();
+                 control->treatmentList[3]->setPower(powerlevel);
+                 //control->treatmentList[3]->startTimer();
+                 ui->timer->setText("Touch skin");
                  ui->menu->clear();
                 break;
 
             case eHead:
                  qDebug() << "Running Head at power level " << powerlevel;
-                 control->treatmentList[1]->startTimer();
+                 control->treatmentList[1]->setPower(powerlevel);
+                 //control->treatmentList[1]->startTimer();
+                 ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
 
             case eHypotonia:
                  qDebug() << "Running Hypotonia at power level " << powerlevel;
-                 control->treatmentList[2]->startTimer();
+                 control->treatmentList[2]->setPower(powerlevel);
+                 //control->treatmentList[2]->startTimer();
+                 ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
 
             case e10Hz:
                  qDebug() << "Running 10Hz at power level " << powerlevel;
-                 control->treatmentList[6]->startTimer();
+                 control->treatmentList[6]->setPower(powerlevel);
+                 //control->treatmentList[6]->startTimer();
+                 ui->timer->setText("Skin");
                  ui->menu->clear();
 
                 break;
 
             case e20Hz:
                  qDebug() << "Running 20Hz at power level " << powerlevel;
-                 control->treatmentList[7]->startTimer();
+                 control->treatmentList[7]->setPower(powerlevel);
+                 //control->treatmentList[7]->startTimer();
+                 ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
 
             case e60Hz:
                  qDebug() << "Running 60Hz at power level " << powerlevel;
-                 control->treatmentList[5]->startTimer();
+                 control->treatmentList[5]->setPower(powerlevel);
+                 //control->treatmentList[5]->startTimer();
+                 ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
 
             case e77Hz:
                  qDebug() << "Running 77Hz at power level " << powerlevel;
-                 control->treatmentList[4]->startTimer();
+                 control->treatmentList[4]->setPower(powerlevel);
+                 //control->treatmentList[4]->startTimer();
+                 ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
         }
@@ -241,7 +264,6 @@ void MainWindow::updateTimer(QString time)
     /*
      * ui->something and update the time using the time local variable
      */
-
 
     QString limit = "00:00";
     ui->timer->setText(time);
@@ -292,4 +314,14 @@ void MainWindow::on_back_clicked()
 void MainWindow::updateBattery(int b)
 {
     ui->progressBar->setValue(b);
+}
+
+void MainWindow::on_contactSkin_clicked()
+{
+    if(ui->contactSkin->isChecked()){
+         control->treatmentList[currTreatment]->startTimer();
+    }
+    else{
+        control->treatmentList[currTreatment]->stopTimer();
+    }
 }
