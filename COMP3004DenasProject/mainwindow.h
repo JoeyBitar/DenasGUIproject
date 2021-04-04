@@ -34,11 +34,13 @@ private slots:
     void on_returnMenu_clicked();
     void on_back_clicked();
     void updateBattery(int);
+    void on_contactSkin_clicked();
 
 private:
     Ui::MainWindow *ui;
     Controller *control;
     std::string prevMenu;
+    unsigned short currTreatment;
 };
 
 #endif // MAINWINDOW_H

@@ -377,7 +377,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QRadioButton" name="radioButton">
+   <widget class="QRadioButton" name="contactSkin">
     <property name="geometry">
      <rect>
       <x>350</x>

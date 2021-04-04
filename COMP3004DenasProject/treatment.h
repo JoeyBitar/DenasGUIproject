@@ -19,6 +19,8 @@ public:
     void stopTimer();                               //Stops the treatment timer
     QString getTreatmentDurationTime();             //Returns the duration time left
     void setPower(int);
+    void takeDateScreenshot();
+
 
 private slots:
     void decrementTimer();                          //Decrements the treatment time every second.

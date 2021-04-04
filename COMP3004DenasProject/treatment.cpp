@@ -18,6 +18,7 @@ Treatment::Treatment(std::string programName, int powerLvl, int durationTime, in
      */
     timer.setHMS(0,durationTime,0);
     timerCaller = new QTimer(this);
+    connect(timerCaller, SIGNAL(timeout()), this, SLOT(decrementTimer()));
 }
 
 /*
@@ -25,12 +26,15 @@ Treatment::Treatment(std::string programName, int powerLvl, int durationTime, in
  */
 void Treatment::startTimer()
 {
+    timerCaller->start(1000);
+}
+
+void Treatment::takeDateScreenshot()
+{
     /*
      * Date with exact time can be retrieved using date.toString("dd.MM.yyyy.hh:mm:ss")
-     */
+    */
     dateTime = QDateTime::currentDateTime();
-    connect(timerCaller, SIGNAL(timeout()), this, SLOT(decrementTimer()));
-    timerCaller->start(1000);
 }
 
 /*
