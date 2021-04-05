@@ -56,6 +56,17 @@ string_code hash(std::string const& str){
     if (str == "77Hz") return e77Hz;
 }
 
+void MainWindow::showMainMenu(){
+    ui->timer->clear();
+    ui->menu->clear();
+    ui->menu->addItem("Programs");
+    ui->menu->addItem("Frequency");
+    ui->menu->addItem("History");
+    ui->menu->addItem("Med");
+    ui->menu->addItem("Screening");
+    ui->menu->setCurrentRow(0);
+}
+
 void MainWindow::showPrograms()
 {
     ui->menu->clear();
@@ -69,6 +80,7 @@ void MainWindow::showPrograms()
 void MainWindow::showFrequency()
 {
     ui->menu->clear();
+    showPowerLevel();
     ui->menu->addItem("10Hz");
     ui->menu->addItem("20Hz");
     ui->menu->addItem("60Hz");
@@ -81,6 +93,15 @@ void MainWindow::showHistory()
     ui->menu->clear();
     ui->menu->addItem("View");
     ui->menu->addItem("Clear");
+    ui->menu->setCurrentRow(0);
+}
+
+void MainWindow::showSaveOption()
+{
+    ui->menu->clear();
+    ui->menu->addItem("Save Recording");
+    ui->menu->addItem("Discard Recording");
+    ui->menu->addItem("Return to Treatment");
     ui->menu->setCurrentRow(0);
 }
 
@@ -107,7 +128,6 @@ void MainWindow::on_Down_clicked()
 {
     int menuSize = ui->menu->count();
     int currentIndex = ui->menu->currentRow();
-    qDebug() << "SIZE" << menuSize;
     qDebug() << currentIndex;
     if (currentIndex + 1 != menuSize){
         ui->menu->setCurrentRow(currentIndex+1);
@@ -175,14 +195,34 @@ void MainWindow::on_ok_clicked()
         prevMenu = "77Hz";
         currTreatment = 4;
     }
+    else if(ui->menu->currentItem()->text() == "Save Recording"){
+        qDebug() << "Recording Saved(but not actually i still have to do that part) ";
+        control->endTreatment();
+        showMainMenu();
+        prevMenu = "Main";
+    }
+    else if(ui->menu->currentItem()->text() == "Discard Recording"){
+        qDebug() << "Recording discarded ";
+        control->endTreatment();
+        showMainMenu();
+        prevMenu = "Main";
+    }
+    else if(ui->menu->currentItem()->text() == "Return to Treatment"){
+        qDebug() << "Returning to treatment";
+
+        ui->menu->clear();
+        ui->timer->setText("Skin");
+        prevMenu = "Power";
+    }
     else if(ui->menu->currentItem()->text().toInt()){
         qDebug() << "Selected Power Level " << ui->menu->currentItem()->text();
         int powerlevel = ui->menu->currentItem()->text().toInt();
+        control->startTreatment();
+        control->treatmentList[0]->setPower(powerlevel);
         switch(hash(prevMenu)){
             case eAllergy:
                 qDebug() << "Running Allergy at power level " << powerlevel;
                 control->treatmentList[0]->setPower(powerlevel);
-                //control->treatmentList[0]->startTimer();
                 ui->timer->setText("Skin");
                 ui->menu->clear();
                 break;
@@ -190,7 +230,6 @@ void MainWindow::on_ok_clicked()
             case eThroat:
                  qDebug() << "Running Throat at power level " << powerlevel;
                  control->treatmentList[3]->setPower(powerlevel);
-                 //control->treatmentList[3]->startTimer();
                  ui->timer->setText("Touch skin");
                  ui->menu->clear();
                 break;
@@ -198,7 +237,6 @@ void MainWindow::on_ok_clicked()
             case eHead:
                  qDebug() << "Running Head at power level " << powerlevel;
                  control->treatmentList[1]->setPower(powerlevel);
-                 //control->treatmentList[1]->startTimer();
                  ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
@@ -206,7 +244,6 @@ void MainWindow::on_ok_clicked()
             case eHypotonia:
                  qDebug() << "Running Hypotonia at power level " << powerlevel;
                  control->treatmentList[2]->setPower(powerlevel);
-                 //control->treatmentList[2]->startTimer();
                  ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
@@ -214,16 +251,14 @@ void MainWindow::on_ok_clicked()
             case e10Hz:
                  qDebug() << "Running 10Hz at power level " << powerlevel;
                  control->treatmentList[6]->setPower(powerlevel);
-                 //control->treatmentList[6]->startTimer();
                  ui->timer->setText("Skin");
                  ui->menu->clear();
 
                 break;
 
             case e20Hz:
-                 qDebug() << "Running 20Hz at power level " << powerlevel;
+                 qDebug() << "Running 20Hz at power level " << powerlevel;ui->contactSkin->setChecked(false);
                  control->treatmentList[7]->setPower(powerlevel);
-                 //control->treatmentList[7]->startTimer();
                  ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
@@ -231,7 +266,6 @@ void MainWindow::on_ok_clicked()
             case e60Hz:
                  qDebug() << "Running 60Hz at power level " << powerlevel;
                  control->treatmentList[5]->setPower(powerlevel);
-                 //control->treatmentList[5]->startTimer();
                  ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
@@ -239,7 +273,6 @@ void MainWindow::on_ok_clicked()
             case e77Hz:
                  qDebug() << "Running 77Hz at power level " << powerlevel;
                  control->treatmentList[4]->setPower(powerlevel);
-                 //control->treatmentList[4]->startTimer();
                  ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
@@ -252,6 +285,7 @@ void MainWindow::on_ok_clicked()
  */
 void MainWindow::turnOffDevice()
 {
+    control->stopTimer();
     ui->timer->setText(":(");
 }
 
@@ -277,19 +311,30 @@ void MainWindow::updateTimer(QString time)
 
 void MainWindow::on_returnMenu_clicked()
 {
-    ui->menu->clear();
+    ui->contactSkin->setChecked(false);
     ui->timer->clear();
-    ui->menu->addItem("Programs");
-    ui->menu->addItem("Frequency");
-    ui->menu->addItem("History");
-    ui->menu->addItem("Med");
-    ui->menu->addItem("Screening");
-    ui->menu->setCurrentRow(0);
+    ui->menu->clear();
+    control->stopTimer();
+    if(control->isTreatmentActive()==true){
+       showSaveOption();
+       ui->menu->setCurrentRow(0);
+    }else{
+        showMainMenu();
+    }
+
 }
 
 void MainWindow::on_back_clicked()
 {
+    ui->contactSkin->setChecked(false);
     ui->timer->clear();
+    ui->menu->clear();
+    control->stopTimer();
+    if(control->isTreatmentActive()==true){
+       showSaveOption();
+       ui->menu->setCurrentRow(0);
+    }
+
     if(prevMenu == "Programs"){
         showPrograms();
     }

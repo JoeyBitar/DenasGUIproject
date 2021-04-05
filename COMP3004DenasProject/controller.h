@@ -13,7 +13,7 @@
 #include <sixtyhz.h>
 #include <tenhz.h>
 #include <twentyhz.h>
-
+#include "treatment.h"
 
 
 class Controller : public QObject
@@ -26,7 +26,9 @@ public:
     std::vector<Recording*> recordingList;
     void connectTreatmentSignals();
     void stopTimer();
-
+    void startTreatment();
+    void endTreatment();
+    bool isTreatmentActive();
 
 signals:
     void requestTurnOffDevice();
@@ -37,13 +39,12 @@ private slots:
 
 private:
     void addRecordings(Treatment);
-    void startTreatment();
-    void pauseTreatment();
     void calculateBatteryDrainage();
     bool checkIfBatteryIsZero();
 
     int batteryLife;
     bool devicePower;
+    bool treatmentActive;
 
 };
 

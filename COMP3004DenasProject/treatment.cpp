@@ -1,4 +1,6 @@
 #include "treatment.h"
+#include <QDebug>
+using namespace std;
 
 Treatment::Treatment(QObject *parent) : QObject(parent)
 {}
@@ -10,6 +12,7 @@ Treatment::Treatment(std::string programName, int powerLvl, int durationTime, in
 {
     program    = programName;
     power      = powerLvl;
+    maxPower   = power;
     duration   = durationTime;
     frequency  = frequencyLvl;
 
@@ -42,9 +45,9 @@ void Treatment::takeDateScreenshot()
  */
 void Treatment::stopTimer()
 {
+    qDebug() <<"Stop timer";
     timerCaller->stop();
 }
-
 
 /*
  * Returns the duration time of the treatment.

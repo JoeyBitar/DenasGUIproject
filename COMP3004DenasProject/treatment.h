@@ -6,6 +6,7 @@
 #include <QTime>
 #include <string>
 #include <QDateTime>
+#include <iostream>
 
 class Treatment : public QObject
 {
@@ -15,11 +16,11 @@ public:
     explicit Treatment(QObject *parent = nullptr);
     Treatment(std::string,int,int,int);
     void startTimer();                              //Starts the treatment timer
-    void pauseTimer();                              //Pauses the treatment timer
     void stopTimer();                               //Stops the treatment timer
     QString getTreatmentDurationTime();             //Returns the duration time left
     void setPower(int);
     void takeDateScreenshot();
+
 
 
 private slots:
@@ -35,6 +36,7 @@ private:
     QDateTime dateTime;
     std::string program;
     int power;
+    int maxPower;
     int duration;
     int frequency;
 
