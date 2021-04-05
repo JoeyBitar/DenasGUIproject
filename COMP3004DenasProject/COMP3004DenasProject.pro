@@ -27,13 +27,10 @@ CONFIG += c++11
 SOURCES += \
         allergy.cpp \
         controller.cpp \
-        frequencymenu.cpp \
         head.cpp \
         hypotonia.cpp \
         main.cpp \
         mainwindow.cpp \
-        menu.cpp \
-        programmenu.cpp \
         recording.cpp \
         seventysevenhz.cpp \
         sixtyhz.cpp \
@@ -45,12 +42,9 @@ SOURCES += \
 HEADERS += \
         allergy.h \
         controller.h \
-        frequencymenu.h \
         head.h \
         hypotonia.h \
         mainwindow.h \
-        menu.h \
-        programmenu.h \
         recording.h \
         seventysevenhz.h \
         sixtyhz.h \
