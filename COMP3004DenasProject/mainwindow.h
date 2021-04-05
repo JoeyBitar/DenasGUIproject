@@ -21,8 +21,10 @@ public:
     void connectTreatmentSignals();
     void showPrograms();
     void showFrequency();
+    void showMainMenu();
     void showHistory();
     void showPowerLevel();
+    void showSaveOption();
 
 private slots:
 

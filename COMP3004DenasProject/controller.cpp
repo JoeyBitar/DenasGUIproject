@@ -1,7 +1,9 @@
 #include "controller.h"
-
+#include <QDebug>
 Controller::Controller(QObject *parent) : QObject(parent)
 {}
+
+using namespace std;
 
 Controller::Controller(int battery)
 {
@@ -52,4 +54,24 @@ void Controller::stopTimer()
     for(unsigned long i = 0; i < treatmentList.size(); i++){
         treatmentList[i]->stopTimer();
      }
+}
+
+
+bool Controller::isTreatmentActive()
+{
+    return treatmentActive;
+}
+
+
+
+void Controller::startTreatment()
+{
+    qDebug() <<"treatmentActive = true";
+    treatmentActive = true;
+}
+
+void Controller::endTreatment()
+{
+    qDebug() <<"treatmentActive = false";
+    treatmentActive = false;
 }
