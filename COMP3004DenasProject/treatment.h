@@ -20,6 +20,7 @@ public:
     QString getTreatmentDurationTime();             //Returns the duration time left
     void setPower(int);
     void takeDateScreenshot();
+    void restartTimer();
 
 
 

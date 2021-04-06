@@ -80,7 +80,6 @@ void MainWindow::showPrograms()
 void MainWindow::showFrequency()
 {
     ui->menu->clear();
-    showPowerLevel();
     ui->menu->addItem("10Hz");
     ui->menu->addItem("20Hz");
     ui->menu->addItem("60Hz");
@@ -203,19 +202,21 @@ void MainWindow::on_ok_clicked()
     }
     else if(ui->menu->currentItem()->text() == "Discard Recording"){
         qDebug() << "Recording discarded ";
+        control->treatmentList[currTreatment]->restartTimer();
         control->endTreatment();
         showMainMenu();
         prevMenu = "Main";
     }
     else if(ui->menu->currentItem()->text() == "Return to Treatment"){
         qDebug() << "Returning to treatment";
-
+        disableOKButton();
         ui->menu->clear();
         ui->timer->setText("Skin");
         prevMenu = "Power";
     }
     else if(ui->menu->currentItem()->text().toInt()){
         qDebug() << "Selected Power Level " << ui->menu->currentItem()->text();
+        disableOKButton();
         int powerlevel = ui->menu->currentItem()->text().toInt();
         control->startTreatment();
         control->treatmentList[0]->setPower(powerlevel);
@@ -230,7 +231,7 @@ void MainWindow::on_ok_clicked()
             case eThroat:
                  qDebug() << "Running Throat at power level " << powerlevel;
                  control->treatmentList[3]->setPower(powerlevel);
-                 ui->timer->setText("Touch skin");
+                 ui->timer->setText("Skin");
                  ui->menu->clear();
                 break;
 
@@ -311,6 +312,7 @@ void MainWindow::updateTimer(QString time)
 
 void MainWindow::on_returnMenu_clicked()
 {
+    enableOKButton();
     ui->contactSkin->setChecked(false);
     ui->timer->clear();
     ui->menu->clear();
@@ -326,6 +328,7 @@ void MainWindow::on_returnMenu_clicked()
 
 void MainWindow::on_back_clicked()
 {
+    enableOKButton();
     ui->contactSkin->setChecked(false);
     ui->timer->clear();
     ui->menu->clear();
@@ -369,4 +372,14 @@ void MainWindow::on_contactSkin_clicked()
     else{
         control->treatmentList[currTreatment]->stopTimer();
     }
+}
+
+void MainWindow::disableOKButton()
+{
+    ui->ok->setEnabled(false);
+}
+
+void MainWindow::enableOKButton()
+{
+    ui->ok->setEnabled(true);
 }
