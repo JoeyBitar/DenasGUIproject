@@ -18,7 +18,7 @@ Controller::Controller(int battery)
     treatmentList.push_back(new TwentyHz());
 
     connectTreatmentSignals();
-    //treatmentActive = false;
+    treatmentActive = false;
 }
 
 
