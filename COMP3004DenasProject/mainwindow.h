@@ -25,6 +25,8 @@ public:
     void showHistory();
     void showPowerLevel();
     void showSaveOption();
+    void disableOKButton(); //Fixes the crash whenever the user presses ok during a treatment.
+    void enableOKButton();
 
 private slots:
 

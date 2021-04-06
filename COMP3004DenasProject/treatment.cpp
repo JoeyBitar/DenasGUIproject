@@ -79,3 +79,8 @@ void Treatment::setPower(int p)
 {
     power = p;
 }
+
+void Treatment::restartTimer()
+{
+    timer.setHMS(0,duration,0);
+}
