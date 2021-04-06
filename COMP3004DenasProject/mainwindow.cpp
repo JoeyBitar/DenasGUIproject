@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->menu->setCurrentRow(0); // selects the "programs" menu by default
+    prevMenu = "Main";
 
     control = new Controller(100); //Init controller
     connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice())); //the turnOffDevice turns off the device or pop-ups a message or something.
