@@ -199,6 +199,8 @@ void MainWindow::on_ok_clicked()
         qDebug() << "Recording Saved(but not actually i still have to do that part) ";
         control->treatmentList[currTreatment]->restartTimer();
         control->endTreatment();
+        control->treatmentList[currTreatment]->getProgram();
+        control->addRecording(control->treatmentList[currTreatment]);
         showMainMenu();
         prevMenu = "Main";
     }

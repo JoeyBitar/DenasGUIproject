@@ -21,6 +21,7 @@ public:
     void setPower(int);
     void takeDateScreenshot();
     void restartTimer();
+    std::string getProgram();
 
 
 
