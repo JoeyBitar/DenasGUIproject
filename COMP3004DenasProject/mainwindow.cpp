@@ -197,6 +197,7 @@ void MainWindow::on_ok_clicked()
     }
     else if(ui->menu->currentItem()->text() == "Save Recording"){
         qDebug() << "Recording Saved(but not actually i still have to do that part) ";
+        control->treatmentList[currTreatment]->restartTimer();
         control->endTreatment();
         showMainMenu();
         prevMenu = "Main";
@@ -339,7 +340,7 @@ void MainWindow::on_back_clicked()
        ui->menu->setCurrentRow(0);
     }
 
-    if(prevMenu == "Programs"){
+    else if(prevMenu == "Programs"){
         showPrograms();
     }
     else if(prevMenu == "Frequency"){
