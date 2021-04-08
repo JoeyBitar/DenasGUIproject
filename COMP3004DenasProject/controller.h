@@ -29,6 +29,7 @@ public:
     void startTreatment();
     void endTreatment();
     bool isTreatmentActive();
+    void addRecording(Treatment*);
 
 signals:
     void requestTurnOffDevice();

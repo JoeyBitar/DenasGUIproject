@@ -24,6 +24,10 @@ Treatment::Treatment(std::string programName, int powerLvl, int durationTime, in
     connect(timerCaller, SIGNAL(timeout()), this, SLOT(decrementTimer()));
 }
 
+std::string Treatment::getProgram(){
+    return program;
+}
+
 /*
  * Starts the timer for the treatment
  */

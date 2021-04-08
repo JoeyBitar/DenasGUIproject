@@ -57,13 +57,10 @@ void Controller::stopTimer()
      }
 }
 
-
 bool Controller::isTreatmentActive()
 {
     return treatmentActive;
 }
-
-
 
 void Controller::startTreatment()
 {
@@ -75,4 +72,9 @@ void Controller::endTreatment()
 {
     qDebug() <<"treatmentActive = false";
     treatmentActive = false;
+}
+
+void Controller::addRecording(Treatment *t){
+    qDebug() <<"Controller::addRecording";
+
 }
