@@ -19,9 +19,10 @@ public:
     void stopTimer();                               //Stops the treatment timer
     QString getTreatmentDurationTime();             //Returns the duration time left
     void setPower(int);
-    void takeDateScreenshot();
+    QDateTime takeDateScreenshot();
     void restartTimer();
     std::string getProgram();
+    int getMaxPower();
 
 
 

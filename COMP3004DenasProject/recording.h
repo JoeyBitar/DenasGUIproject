@@ -9,13 +9,12 @@ class Recording : public QObject
     Q_OBJECT
 public:
     explicit Recording(QObject *parent = nullptr);
-    Recording(QDateTime,std::string,int,std::string);
-    ~Recording();
+    Recording(QDateTime,std::string,int,QString);
 private:
     QDateTime dateTime;
     std::string program;
     int maxPower;
-    std::string duration;
+    QString duration;
 
 signals:
 
