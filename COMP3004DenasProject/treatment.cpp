@@ -28,6 +28,10 @@ std::string Treatment::getProgram(){
     return program;
 }
 
+int Treatment::getMaxPower(){
+    return maxPower;
+}
+
 /*
  * Starts the timer for the treatment
  */
@@ -36,12 +40,13 @@ void Treatment::startTimer()
     timerCaller->start(1000);
 }
 
-void Treatment::takeDateScreenshot()
+QDateTime Treatment::takeDateScreenshot()
 {
     /*
      * Date with exact time can be retrieved using date.toString("dd.MM.yyyy.hh:mm:ss")
     */
     dateTime = QDateTime::currentDateTime();
+    return dateTime;
 }
 
 /*
@@ -81,6 +86,9 @@ void Treatment::decrementTimer()
 
 void Treatment::setPower(int p)
 {
+    if(p>maxPower){
+        maxPower= p;
+    }
     power = p;
 }
 
