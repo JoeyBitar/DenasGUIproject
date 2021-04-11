@@ -376,6 +376,29 @@
       <string/>
      </property>
     </widget>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>256</width>
+       <height>101</height>
+      </rect>
+     </property>
+    </widget>
+    <zorder>tableWidget</zorder>
+    <zorder>progressBar</zorder>
+    <zorder>menu</zorder>
+    <zorder>Down</zorder>
+    <zorder>Up</zorder>
+    <zorder>right</zorder>
+    <zorder>left</zorder>
+    <zorder>ok</zorder>
+    <zorder>right_2</zorder>
+    <zorder>returnMenu</zorder>
+    <zorder>back</zorder>
+    <zorder>BatteryLevel</zorder>
+    <zorder>timer</zorder>
    </widget>
    <widget class="QRadioButton" name="contactSkin">
     <property name="geometry">

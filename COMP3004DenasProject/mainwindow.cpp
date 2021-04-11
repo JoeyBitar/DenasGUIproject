@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->menu->setCurrentRow(0); // selects the "programs" menu by default
+    ui->tableWidget->hide();
     prevMenu = "Main";
 
     control = new Controller(100); //Init controller
@@ -134,6 +135,27 @@ void MainWindow::on_Down_clicked()
     }
 }
 
+void MainWindow::showRecordings(){
+    ui->menu->hide();
+
+    //ui->tableWidget-
+    QTableWidgetItem *item = new QTableWidgetItem("Date",0);
+    QTableWidgetItem *item1 = new QTableWidgetItem("Treatment",0);
+    QTableWidgetItem *item2 = new QTableWidgetItem("Power",0);
+    QTableWidgetItem *item3 = new QTableWidgetItem("Duration",0);
+    ui->tableWidget->setRowCount(4);
+    ui->tableWidget->setColumnCount(4);
+
+    ui->tableWidget->setItem(0,0,item);
+    ui->tableWidget->setItem(0,1,item1);
+    ui->tableWidget->setItem(0,2,item2);
+    ui->tableWidget->setItem(0,3,item3);
+    ui->tableWidget->show();
+    for(Recording* i : control->recordingList){
+      //  ui->
+    }
+}
+
 void MainWindow::on_ok_clicked()
 {
     qDebug() << ui->menu->currentItem()->text();
@@ -151,6 +173,8 @@ void MainWindow::on_ok_clicked()
     }
     else if(ui->menu->currentItem()->text() == "View"){
         prevMenu = "History";
+        showRecordings();
+
     }
     else if(ui->menu->currentItem()->text() == "Clear"){
         prevMenu = "History";

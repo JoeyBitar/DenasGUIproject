@@ -6,6 +6,10 @@
 #include <controller.h>
 #include <qlcdnumber.h>
 #include <string.h>
+#include <QTableView>
+#include <QTableWidgetItem>
+#include <QTableWidget>
+
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +27,7 @@ public:
     void showFrequency();
     void showMainMenu();
     void showHistory();
+    void showRecordings();
     void showPowerLevel();
     void showSaveOption();
     void disableOKButton(); //Fixes the crash whenever the user presses ok during a treatment.
