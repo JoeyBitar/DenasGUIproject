@@ -8,7 +8,7 @@ Treatment::Treatment(QObject *parent) : QObject(parent)
 /*
  * Initialises instance variables
  */
-Treatment::Treatment(std::string programName, int powerLvl, int durationTime, int frequencyLvl)
+Treatment::Treatment(QString programName, int powerLvl, int durationTime, int frequencyLvl)
 {
     program    = programName;
     power      = powerLvl;
@@ -24,7 +24,7 @@ Treatment::Treatment(std::string programName, int powerLvl, int durationTime, in
     connect(timerCaller, SIGNAL(timeout()), this, SLOT(decrementTimer()));
 }
 
-std::string Treatment::getProgram(){
+QString Treatment::getProgram(){
     return program;
 }
 

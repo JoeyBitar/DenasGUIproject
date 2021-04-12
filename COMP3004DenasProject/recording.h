@@ -3,16 +3,22 @@
 
 #include <QObject>
 #include <QDateTime>
+#include <iostream>
+#include<sstream>
 
 class Recording : public QObject
 {
     Q_OBJECT
 public:
     explicit Recording(QObject *parent = nullptr);
-    Recording(QDateTime,std::string,int,QString);
+    Recording(QDateTime,QString,int,QString);
+    QString getDateTime();
+    QString getProgram();
+    QString getMaxPower();
+    QString getDuration();
 private:
     QDateTime dateTime;
-    std::string program;
+    QString program;
     int maxPower;
     QString duration;
 
