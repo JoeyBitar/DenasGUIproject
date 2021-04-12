@@ -346,6 +346,7 @@ void MainWindow::updateTimer(QString time)
         on_back_clicked();
     }
     qDebug() << time;
+    qDebug() << "duration: " << control->treatmentList[currTreatment]->getDuration();
 }
 
 void MainWindow::on_returnMenu_clicked()

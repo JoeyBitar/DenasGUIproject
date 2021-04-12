@@ -20,6 +20,7 @@ Treatment::Treatment(QString programName, int powerLvl, int durationTime, int fr
      * Sets the duration of the timer to be durationTime long.
      */
     timer.setHMS(0,durationTime,0);
+    timerDuration.setHMS(0,0,0);
     timerCaller = new QTimer(this);
     connect(timerCaller, SIGNAL(timeout()), this, SLOT(decrementTimer()));
 }
@@ -77,8 +78,9 @@ void Treatment::decrementTimer()
     emit updateGUITimer(timer.toString("mm:ss"));
     emit sendBatteryUpdate(power);
     timer = timer.addSecs(-1);
+    timerDuration = timerDuration.addSecs(+1);
 
-    if(timer.toString("mm:ss") == "59:59"){
+    if(timer.toString("mm:ss") == "00:00"){
         //Need to send a signal to the GUI indicating that the treatment is over.
         stopTimer();
     }
@@ -95,4 +97,9 @@ void Treatment::setPower(int p)
 void Treatment::restartTimer()
 {
     timer.setHMS(0,duration,0);
+}
+
+QString Treatment::getDuration()
+{
+    return timerDuration.toString("mm:ss");
 }
