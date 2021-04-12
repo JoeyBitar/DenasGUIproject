@@ -76,7 +76,6 @@ void Controller::endTreatment()
 }
 
 void Controller::addRecording(Treatment *t){
-    qDebug() <<"Controller::addRecording";
     Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getTreatmentDurationTime());
     recordingList.push_back(r);
 }

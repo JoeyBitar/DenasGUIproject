@@ -14,14 +14,14 @@ class Treatment : public QObject
 
 public:
     explicit Treatment(QObject *parent = nullptr);
-    Treatment(std::string,int,int,int);
+    Treatment(QString,int,int,int);
     void startTimer();                              //Starts the treatment timer
     void stopTimer();                               //Stops the treatment timer
     QString getTreatmentDurationTime();             //Returns the duration time left
     void setPower(int);
     QDateTime takeDateScreenshot();
     void restartTimer();
-    std::string getProgram();
+    QString getProgram();
     int getMaxPower();
 
 
@@ -37,7 +37,7 @@ private:
     QTimer* timerCaller;
     QTime timer;
     QDateTime dateTime;
-    std::string program;
+    QString program;
     int power;
     int maxPower;
     int duration;
