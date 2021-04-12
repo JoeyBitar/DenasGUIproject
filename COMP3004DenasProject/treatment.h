@@ -23,7 +23,7 @@ public:
     void restartTimer();
     QString getProgram();
     int getMaxPower();
-
+    QString getDuration();                          //Returnamount of time the user performed the treatment
 
 
 private slots:
@@ -36,6 +36,7 @@ signals:
 private:
     QTimer* timerCaller;
     QTime timer;
+    QTime timerDuration;
     QDateTime dateTime;
     QString program;
     int power;
