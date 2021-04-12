@@ -32,6 +32,8 @@ public:
     void showSaveOption();
     void disableOKButton(); //Fixes the crash whenever the user presses ok during a treatment.
     void enableOKButton();
+    void disableSkin();
+    void enableSkin();
 
 private slots:
 

@@ -15,8 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice())); //the turnOffDevice turns off the device or pop-ups a message or something.
     connect(control, SIGNAL(changeGUIBattery(int)),this, SLOT(updateBattery(int))); //Connects the battery signal from Control class
     connectTreatmentSignals();
-
-
+    disableSkin();
     //connect(ui->pushButton_7, SIGNAL(clicked()), ui->listWidget,
            // SLOT(clear()));
 }
@@ -236,18 +235,21 @@ void MainWindow::on_ok_clicked()
         control->treatmentList[currTreatment]->getProgram();
         control->addRecording(control->treatmentList[currTreatment]);
         showMainMenu();
+        disableSkin();
         prevMenu = "Main";
     }
     else if(ui->menu->currentItem()->text() == "Discard Recording"){
         qDebug() << "Recording discarded ";
         control->treatmentList[currTreatment]->restartTimer();
         control->endTreatment();
+        disableSkin();
         showMainMenu();
         prevMenu = "Main";
     }
     else if(ui->menu->currentItem()->text() == "Return to Treatment"){
         qDebug() << "Returning to treatment";
         disableOKButton();
+        enableSkin();
         ui->menu->clear();
         ui->timer->setText("Skin");
         prevMenu = "Power";
@@ -255,6 +257,7 @@ void MainWindow::on_ok_clicked()
     else if(ui->menu->currentItem()->text().toInt()){
         qDebug() << "Selected Power Level " << ui->menu->currentItem()->text();
         disableOKButton();
+        enableSkin();
         int powerlevel = ui->menu->currentItem()->text().toInt();
         control->startTreatment();
         control->treatmentList[0]->setPower(powerlevel);
@@ -368,6 +371,7 @@ void MainWindow::on_returnMenu_clicked()
 void MainWindow::on_back_clicked()
 {
     enableOKButton();
+    disableSkin();
     ui->contactSkin->setChecked(false);
     ui->timer->clear();
     ui->menu->clear();
@@ -423,4 +427,13 @@ void MainWindow::disableOKButton()
 void MainWindow::enableOKButton()
 {
     ui->ok->setEnabled(true);
+}
+
+void MainWindow::disableSkin()
+{
+      ui->contactSkin->setEnabled(false);
+}
+void MainWindow::enableSkin()
+{
+      ui->contactSkin->setEnabled(true);
 }
