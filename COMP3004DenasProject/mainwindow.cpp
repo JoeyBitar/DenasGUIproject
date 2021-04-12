@@ -384,6 +384,8 @@ void MainWindow::on_back_clicked()
         showFrequency();
     }
     else if(prevMenu == "History"){
+        ui->tableWidget->hide();
+        ui->menu->setVisible(true);
         showHistory();
     }
     else if(prevMenu == "Main"){
