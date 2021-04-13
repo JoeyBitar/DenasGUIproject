@@ -257,7 +257,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="right_2">
+    <widget class="QPushButton" name="turnOnOffDevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -394,7 +394,7 @@
     <zorder>right</zorder>
     <zorder>left</zorder>
     <zorder>ok</zorder>
-    <zorder>right_2</zorder>
+    <zorder>turnOnOffDevice</zorder>
     <zorder>returnMenu</zorder>
     <zorder>back</zorder>
     <zorder>BatteryLevel</zorder>

@@ -13,9 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->timer->setText("OFF");
+    ui->menu->hide();
     ui->menu->setCurrentRow(0);                                                     // selects the "programs" menu by default
     ui->tableWidget->hide();                                                        // Hides the recording table widget
     prevMenu = "Main";                                                              //Sets the default value for the prevMenu
+    deviceOn = false;
 
     control = new Controller(100);                                                  //Init controller
     connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice()));  //the turnOffDevice turns off the device or pop-ups a message or something.
@@ -147,6 +150,8 @@ void MainWindow::showPowerLevel()
  */
 void MainWindow::on_Up_clicked()
 {
+    if(deviceOn == false){ return; }
+
     int currentIndex = ui->menu->currentRow();
     if (currentIndex - 1 >= 0){
         ui->menu->setCurrentRow(currentIndex-1);
@@ -159,6 +164,8 @@ void MainWindow::on_Up_clicked()
  */
 void MainWindow::on_Down_clicked()
 {
+    if(deviceOn == false){ return; }
+
     int menuSize = ui->menu->count();
     int currentIndex = ui->menu->currentRow();
     if (currentIndex + 1 != menuSize){
@@ -204,6 +211,7 @@ void MainWindow::showRecordings(){
  */
 void MainWindow::on_ok_clicked()
 {
+    if(deviceOn == false){ return; }
     /*
      * If user selects the "Programs" menu. Display the program menu.
      */
@@ -308,10 +316,10 @@ void MainWindow::on_ok_clicked()
      */
     else if(ui->menu->currentItem()->text() == "Save Recording"){
         qDebug() << "Recording Saved";
+        control->addRecording(control->treatmentList[currTreatment]);
         control->treatmentList[currTreatment]->restartTimer();
         control->endTreatment();
         control->treatmentList[currTreatment]->getProgram();
-        control->addRecording(control->treatmentList[currTreatment]);
         showMainMenu();
         disableSkin();
         prevMenu = "Main";
@@ -429,6 +437,9 @@ void MainWindow::turnOffDevice()
 {
     control->stopTimer();
     ui->timer->setText(":(");
+    on_turnOnOffDevice_clicked();
+    clearMenu.setText("Device out of battery. Reload the software for full battery");
+    clearMenu.exec();
 }
 
 /*
@@ -455,6 +466,8 @@ void MainWindow::updateTimer(QString time)
  */
 void MainWindow::on_returnMenu_clicked()
 {
+    if(deviceOn == false){ return; }
+
     enableOKButton();                       //Renables ok button
     ui->contactSkin->setChecked(false);     //Disables contact skin button
     ui->timer->clear();                     //Clears timer
@@ -479,6 +492,8 @@ void MainWindow::on_returnMenu_clicked()
  */
 void MainWindow::on_back_clicked()
 {
+    if(deviceOn == false){ return; }
+
     enableOKButton();                   //Enables the ok button
     disableSkin();                      //Disables skin button
     ui->contactSkin->setChecked(false); //Disables skin button selection
@@ -590,4 +605,28 @@ void MainWindow::showClearMessage()
     control->clearRecordings();
     clearMenu.setText("Treatment recordings has been cleared");
     clearMenu.exec();
+}
+
+/*
+ * Device will turn on when the button is presses.
+ * Device will turn off and reset all its timers exept the recording history.
+ */
+void MainWindow::on_turnOnOffDevice_clicked()
+{
+    if(deviceOn == false){
+        deviceOn = true;
+        ui->menu->show();
+        showMainMenu();
+    }
+    else{
+        deviceOn = false;
+        ui->menu->hide();
+        ui->tableWidget->hide();
+        ui->timer->setText("OFF");
+        control->stopTimer();
+        control->reset();
+        ui->contactSkin->setChecked(false);
+        disableSkin();
+        enableOKButton();
+    }
 }

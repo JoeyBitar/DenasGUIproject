@@ -31,6 +31,8 @@ public:
     bool isTreatmentActive();
     void addRecording(Treatment*);
     void clearRecordings();
+    bool checkIfBatteryIsZero();
+    void reset();
 
 signals:
     void requestTurnOffDevice();
@@ -42,7 +44,7 @@ private slots:
 private:
     void addRecordings(Treatment);
     void calculateBatteryDrainage();
-    bool checkIfBatteryIsZero();
+
 
     int batteryLife;
     bool devicePower;

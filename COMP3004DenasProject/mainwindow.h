@@ -47,12 +47,15 @@ private slots:
     void updateBattery(int);                       //Slot for the update battery
     void on_contactSkin_clicked();                 //Slot for the contact skin button
 
+    void on_turnOnOffDevice_clicked();
+
 private:
     Ui::MainWindow *ui;
     Controller *control;                            //Control obj
     std::string prevMenu;                           //previous menu
     unsigned short currTreatment;                   //Indicates which treatment is being executed.
     QMessageBox clearMenu;                          //Pop-up message for clearing menu
+    bool deviceOn;
 
 };
 
