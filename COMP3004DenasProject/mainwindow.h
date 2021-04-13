@@ -9,6 +9,7 @@
 #include <QTableView>
 #include <QTableWidgetItem>
 #include <QTableWidget>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +34,7 @@ public:
     void enableOKButton();
     void disableSkin();
     void enableSkin();
+    void showClearMessage();
 
 private slots:
 
@@ -51,6 +53,7 @@ private:
     Controller *control;
     std::string prevMenu;
     unsigned short currTreatment;
+    QMessageBox clearMenu;
 };
 
 #endif // MAINWINDOW_H

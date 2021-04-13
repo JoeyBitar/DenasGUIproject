@@ -79,3 +79,7 @@ void Controller::addRecording(Treatment *t){
     Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getTreatmentDurationTime());
     recordingList.push_back(r);
 }
+
+void Controller::clearRecordings(){
+    recordingList.clear();
+}
