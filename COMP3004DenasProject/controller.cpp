@@ -86,10 +86,16 @@ void Controller::endTreatment()
 }
 
 void Controller::addRecording(Treatment *t){
-    Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getTreatmentDurationTime());
+    Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getDuration());
     recordingList.push_back(r);
 }
 
 void Controller::clearRecordings(){
     recordingList.clear();
+}
+
+void Controller::reset(){
+    for(unsigned long i = 0; i < treatmentList.size(); i++){
+        treatmentList[i]->restartTimer();
+     }
 }
