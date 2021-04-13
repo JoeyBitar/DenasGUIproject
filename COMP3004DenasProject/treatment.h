@@ -7,6 +7,7 @@
 #include <string>
 #include <QDateTime>
 #include <iostream>
+#include <QMessageBox>
 
 class Treatment : public QObject
 {
@@ -24,7 +25,7 @@ public:
     QString getProgram();
     int getMaxPower();
     QString getDuration();                          //Returnamount of time the user performed the treatment
-
+    int getFrequency();
 
 private slots:
     void decrementTimer();                          //Decrements the treatment time every second.

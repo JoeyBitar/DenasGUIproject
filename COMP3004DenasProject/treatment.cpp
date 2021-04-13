@@ -83,6 +83,9 @@ void Treatment::decrementTimer()
     if(timer.toString("mm:ss") == "00:00"){
         //Need to send a signal to the GUI indicating that the treatment is over.
         stopTimer();
+         QMessageBox b;
+         b.setText("Treatment completed");
+         b.exec();
     }
 }
 
@@ -103,4 +106,9 @@ void Treatment::restartTimer()
 QString Treatment::getDuration()
 {
     return timerDuration.toString("mm:ss");
+}
+
+int Treatment::getFrequency()
+{
+    return frequency;
 }

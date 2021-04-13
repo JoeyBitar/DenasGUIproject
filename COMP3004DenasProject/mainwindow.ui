@@ -17,7 +17,7 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QSlider" name="horizontalSlider">
+   <widget class="QSlider" name="frequencySlider">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -30,7 +30,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QSlider" name="horizontalSlider_2">
+   <widget class="QSlider" name="powerSlider">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -423,7 +423,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Power Level (Do later)</string>
+     <string>Power Level</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -436,7 +436,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Frequency (Do later)</string>
+     <string>Frequency</string>
     </property>
    </widget>
   </widget>
