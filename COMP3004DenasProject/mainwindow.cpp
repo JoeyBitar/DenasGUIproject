@@ -581,6 +581,7 @@ void MainWindow::enableSkin()
 {
       ui->contactSkin->setEnabled(true);
 }
+
 /*
  * Pop-up message indicating a treatment was saved.
  */

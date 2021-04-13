@@ -37,7 +37,6 @@ public:
     void showClearMessage();                        //Display pop-up message
 
 private slots:
-
     void on_Up_clicked();                          //Slot for the up button
     void on_Down_clicked();                        //Slot for the down button
     void on_ok_clicked();                          //Slot for the ok button
@@ -54,6 +53,7 @@ private:
     std::string prevMenu;                           //previous menu
     unsigned short currTreatment;                   //Indicates which treatment is being executed.
     QMessageBox clearMenu;                          //Pop-up message for clearing menu
+
 };
 
 #endif // MAINWINDOW_H
