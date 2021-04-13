@@ -97,6 +97,7 @@ void Treatment::setPower(int p)
 void Treatment::restartTimer()
 {
     timer.setHMS(0,duration,0);
+    timerDuration.setHMS(0,0,0);
 }
 
 QString Treatment::getDuration()
