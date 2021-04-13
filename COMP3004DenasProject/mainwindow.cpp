@@ -187,6 +187,7 @@ void MainWindow::on_ok_clicked()
     }
     else if(ui->menu->currentItem()->text() == "Clear"){
         prevMenu = "History";
+        showClearMessage();
     }
     else if(ui->menu->currentItem()->text() == "Allergy"){
         showPowerLevel();
@@ -440,4 +441,11 @@ void MainWindow::disableSkin()
 void MainWindow::enableSkin()
 {
       ui->contactSkin->setEnabled(true);
+}
+
+void MainWindow::showClearMessage()
+{
+    control->clearRecordings();
+    clearMenu.setText("Treatment recordings has been cleared");
+    clearMenu.exec();
 }
