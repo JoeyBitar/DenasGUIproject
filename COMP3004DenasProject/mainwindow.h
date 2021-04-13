@@ -10,7 +10,6 @@
 #include <QTableWidgetItem>
 #include <QTableWidget>
 
-
 namespace Ui {
 class MainWindow;
 }

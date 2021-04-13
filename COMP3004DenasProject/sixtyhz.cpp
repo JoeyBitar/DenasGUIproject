@@ -1,6 +1,6 @@
 #include "sixtyhz.h"
 
-SixtyHz::SixtyHz() : Treatment("60Hz",1,5,60)
+SixtyHz::SixtyHz() : Treatment("60Hz",1,1,60)
 {
 
 }

@@ -249,10 +249,15 @@ void MainWindow::on_ok_clicked()
     else if(ui->menu->currentItem()->text() == "Return to Treatment"){
         qDebug() << "Returning to treatment";
         disableOKButton();
-        enableSkin();
         ui->menu->clear();
         ui->timer->setText("Skin");
         prevMenu = "Power";
+        if(control->treatmentList[currTreatment]->getTreatmentDurationTime() == "00:00"){
+            disableSkin();
+        }
+        else{
+          enableSkin();
+        }
     }
     else if(ui->menu->currentItem()->text().toInt()){
         qDebug() << "Selected Power Level " << ui->menu->currentItem()->text();
@@ -340,13 +345,12 @@ void MainWindow::updateTimer(QString time)
     /*
      * ui->something and update the time using the time local variable
      */
-
-    QString limit = "00:00";
+    QString limit = "00:01";
     ui->timer->setText(time);
     if (time == limit){
         qDebug() << "Timer Expired";
-        ui->timer->clear();
-        on_back_clicked();
+        ui->timer->setText("DONE");
+        disableSkin();
     }
     qDebug() << time;
     qDebug() << "duration: " << control->treatmentList[currTreatment]->getDuration();
