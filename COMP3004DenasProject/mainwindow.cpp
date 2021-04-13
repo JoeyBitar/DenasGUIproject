@@ -1,3 +1,9 @@
+/*
+ * COMP3004 Project
+ * DENAS PCM project by Steven Rhodes, Aaron Fisher, Joey Bitar, Colin Marsh, Ben Herron
+ * Team 25
+ */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
@@ -7,17 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->menu->setCurrentRow(0); // selects the "programs" menu by default
-    ui->tableWidget->hide();
-    prevMenu = "Main";
+    ui->menu->setCurrentRow(0);                                                     // selects the "programs" menu by default
+    ui->tableWidget->hide();                                                        // Hides the recording table widget
+    prevMenu = "Main";                                                              //Sets the default value for the prevMenu
 
-    control = new Controller(100); //Init controller
-    connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice())); //the turnOffDevice turns off the device or pop-ups a message or something.
+    control = new Controller(100);                                                  //Init controller
+    connect(control, SIGNAL(requestTurnOffDevice()), this, SLOT(turnOffDevice()));  //the turnOffDevice turns off the device or pop-ups a message or something.
     connect(control, SIGNAL(changeGUIBattery(int)),this, SLOT(updateBattery(int))); //Connects the battery signal from Control class
-    connectTreatmentSignals();
-    disableSkin();
-    //connect(ui->pushButton_7, SIGNAL(clicked()), ui->listWidget,
-           // SLOT(clear()));
+    connectTreatmentSignals();                                                      //Connects treatment signals
+    disableSkin();                                                                  //Disables contact skin until treatment starts
 }
 
 MainWindow::~MainWindow()
@@ -35,6 +39,9 @@ void MainWindow::connectTreatmentSignals()
     }
 }
 
+/*
+ * Enum for the treatments
+ */
 enum string_code{
     eAllergy,
     eThroat,
@@ -46,6 +53,9 @@ enum string_code{
     e77Hz
 };
 
+/*
+ *Returns string_code from eNum
+ */
 string_code hash(std::string const& str){
     if (str == "Allergy") return eAllergy;
     if (str == "Throat") return eThroat;
@@ -57,6 +67,9 @@ string_code hash(std::string const& str){
     if (str == "77Hz") return e77Hz;
 }
 
+/*
+ * Shows the main menu
+ */
 void MainWindow::showMainMenu(){
     ui->timer->clear();
     ui->menu->clear();
@@ -68,6 +81,9 @@ void MainWindow::showMainMenu(){
     ui->menu->setCurrentRow(0);
 }
 
+/*
+ * Shows the programs menu
+ */
 void MainWindow::showPrograms()
 {
     ui->menu->clear();
@@ -78,6 +94,9 @@ void MainWindow::showPrograms()
     ui->menu->setCurrentRow(0);
 }
 
+/*
+ * Shows the frequency menu
+ */
 void MainWindow::showFrequency()
 {
     ui->menu->clear();
@@ -88,6 +107,9 @@ void MainWindow::showFrequency()
     ui->menu->setCurrentRow(0);
 }
 
+/*
+ * Shows the history menu
+ */
 void MainWindow::showHistory()
 {
     ui->menu->clear();
@@ -96,6 +118,9 @@ void MainWindow::showHistory()
     ui->menu->setCurrentRow(0);
 }
 
+/*
+ * Shows the "after treatment" menu
+ */
 void MainWindow::showSaveOption()
 {
     ui->menu->clear();
@@ -105,6 +130,9 @@ void MainWindow::showSaveOption()
     ui->menu->setCurrentRow(0);
 }
 
+/*
+ * Shows the power selection menu
+ */
 void MainWindow::showPowerLevel()
 {
     ui->menu->clear();
@@ -114,30 +142,36 @@ void MainWindow::showPowerLevel()
     ui->menu->setCurrentRow(0);
 }
 
+/*
+ * Slot to move ui selection menu to the top
+ */
 void MainWindow::on_Up_clicked()
 {
-    //int menuSize = ui->menu->count();
     int currentIndex = ui->menu->currentRow();
-    qDebug() << currentIndex;
     if (currentIndex - 1 >= 0){
         ui->menu->setCurrentRow(currentIndex-1);
     }
 }
 
+
+/*
+ * Slot to move ui selection menu to the bottom
+ */
 void MainWindow::on_Down_clicked()
 {
     int menuSize = ui->menu->count();
     int currentIndex = ui->menu->currentRow();
-    qDebug() << currentIndex;
     if (currentIndex + 1 != menuSize){
         ui->menu->setCurrentRow(currentIndex+1);
     }
 }
 
+/*
+ * Shows all the saved recordings using QTableWidgetItem
+ */
 void MainWindow::showRecordings(){
-    ui->menu->hide();
+    ui->menu->hide(); //Hides the menu in order to show the QTableWidget
 
-    //ui->tableWidget-
     QTableWidgetItem *item = new QTableWidgetItem("Date",0);
     QTableWidgetItem *item1 = new QTableWidgetItem("Treatment",0);
     QTableWidgetItem *item2 = new QTableWidgetItem("Power",0);
@@ -165,71 +199,115 @@ void MainWindow::showRecordings(){
     }
 }
 
+/*
+ * Slots which handles the "ok" button click
+ */
 void MainWindow::on_ok_clicked()
 {
-    qDebug() << ui->menu->currentItem()->text();
+    /*
+     * If user selects the "Programs" menu. Display the program menu.
+     */
     if(ui->menu->currentItem()->text() == "Programs"){
         showPrograms();
         prevMenu = "Main";
     }
+    /*
+     * If user selects the "Frequency" menu. Display the Frequency menu.
+     */
     else if(ui->menu->currentItem()->text() == "Frequency"){
         showFrequency();
         prevMenu = "Main";
     }
+    /*
+     * If user selects the "History" menu. Display the History menu.
+     */
     else if(ui->menu->currentItem()->text() == "History"){
         showHistory();
         prevMenu = "Main";
     }
+    /*
+     * If user selects the "View" menu. Display all recordings.
+     */
     else if(ui->menu->currentItem()->text() == "View"){
         prevMenu = "History";
         showRecordings();
-
     }
+    /*
+     * If user selects the "Clear" menu. Clear all recordings.
+     */
     else if(ui->menu->currentItem()->text() == "Clear"){
         prevMenu = "History";
+        showClearMessage();
     }
+    /*
+     * If user selects the "Allergy" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "Allergy"){
         showPowerLevel();
         prevMenu = "Allergy";
         currTreatment = 0;
     }
+    /*
+     * If user selects the "Throat" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "Throat"){
         showPowerLevel();
         prevMenu = "Throat";
         currTreatment = 3;
     }
+    /*
+     * If user selects the "Head" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "Head"){
         showPowerLevel();
         prevMenu = "Head";
         currTreatment = 1;
     }
+    /*
+     * If user selects the "Hypotonia" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "Hypotonia"){
         showPowerLevel();
         prevMenu = "Hypotonia";
         currTreatment = 2;
     }
+    /*
+     * If user selects the "10Hz" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "10Hz"){
         showPowerLevel();
         prevMenu = "10Hz";
         currTreatment = 6;
     }
+    /*
+     * If user selects the "20Hz" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "20Hz"){
         showPowerLevel();
         prevMenu = "20Hz";
         currTreatment = 7;
     }
+    /*
+     * If user selects the "60Hz" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "60Hz"){
         showPowerLevel();
         prevMenu = "60Hz";
         currTreatment = 5;
     }
+    /*
+     * If user selects the "77Hz" menu. Show the power levels
+     */
     else if(ui->menu->currentItem()->text() == "77Hz"){
         showPowerLevel();
         prevMenu = "77Hz";
         currTreatment = 4;
     }
+    /*
+     * If user selects the "Save Recording" menu. Save the recording.
+     */
     else if(ui->menu->currentItem()->text() == "Save Recording"){
-        qDebug() << "Recording Saved(but not actually i still have to do that part) ";
+        qDebug() << "Recording Saved";
         control->treatmentList[currTreatment]->restartTimer();
         control->endTreatment();
         control->treatmentList[currTreatment]->getProgram();
@@ -238,6 +316,9 @@ void MainWindow::on_ok_clicked()
         disableSkin();
         prevMenu = "Main";
     }
+    /*
+     * If user selects the "Discard Recording" menu. Discard the treatment and redirect user to main menu.
+     */
     else if(ui->menu->currentItem()->text() == "Discard Recording"){
         qDebug() << "Recording discarded ";
         control->treatmentList[currTreatment]->restartTimer();
@@ -246,12 +327,18 @@ void MainWindow::on_ok_clicked()
         showMainMenu();
         prevMenu = "Main";
     }
+    /*
+     * If user selects the "Return to Treatment" menu. Redirect user to the treatment.
+     */
     else if(ui->menu->currentItem()->text() == "Return to Treatment"){
         qDebug() << "Returning to treatment";
         disableOKButton();
         ui->menu->clear();
         ui->timer->setText("Skin");
         prevMenu = "Power";
+        /*
+         * Fixes crashing bug. Doesn't allow user to press contact skin if the timer is done.
+         */
         if(control->treatmentList[currTreatment]->getTreatmentDurationTime() == "00:00"){
             disableSkin();
         }
@@ -259,13 +346,21 @@ void MainWindow::on_ok_clicked()
           enableSkin();
         }
     }
+    /*
+     * Loads up treatment when power level is selected.
+     */
     else if(ui->menu->currentItem()->text().toInt()){
         qDebug() << "Selected Power Level " << ui->menu->currentItem()->text();
-        disableOKButton();
-        enableSkin();
+        disableOKButton();                                                                    //Disables ok button. Fixes crash
+        enableSkin();                                                                         //Disables ok button. Fixes crash
         int powerlevel = ui->menu->currentItem()->text().toInt();
-        control->startTreatment();
-        control->treatmentList[0]->setPower(powerlevel);
+        control->startTreatment();                                                            //Starts the treatment
+        control->treatmentList[0]->setPower(powerlevel);                                      //Sets the power level
+        ui->powerSlider->setValue(powerlevel);                                                //Sets the power slider. Just for visual purposes.
+        ui->frequencySlider->setValue(control->treatmentList[currTreatment]->getFrequency()); //Sets the frequency slider. Just for visual purposes.
+        /*
+         * For each treatment, sets its power level, and sets the timer widget.
+         */
         switch(hash(prevMenu)){
             case eAllergy:
                 qDebug() << "Running Allergy at power level " << powerlevel;
@@ -353,66 +448,102 @@ void MainWindow::updateTimer(QString time)
         disableSkin();
     }
     qDebug() << time;
-    qDebug() << "duration: " << control->treatmentList[currTreatment]->getDuration();
 }
 
+/*
+ * Returns to the main menu
+ */
 void MainWindow::on_returnMenu_clicked()
 {
-    enableOKButton();
-    ui->contactSkin->setChecked(false);
-    ui->timer->clear();
-    ui->menu->clear();
-    control->stopTimer();
+    enableOKButton();                       //Renables ok button
+    ui->contactSkin->setChecked(false);     //Disables contact skin button
+    ui->timer->clear();                     //Clears timer
+    ui->menu->clear();                      //Clears the old menu
+    control->stopTimer();                   //Stops all timers
+    /*
+     * If treatment was active then prompt the user to save or discard treatment.
+     */
     if(control->isTreatmentActive()==true){
        showSaveOption();
        ui->menu->setCurrentRow(0);
     }else{
+        ui->tableWidget->hide();
+        ui->menu->setVisible(true);
         showMainMenu();
     }
-
 }
 
+/*
+ * Slot for the back button.
+ * Brings the user to the previous menu based on the prevMenu variable.
+ */
 void MainWindow::on_back_clicked()
 {
-    enableOKButton();
-    disableSkin();
-    ui->contactSkin->setChecked(false);
-    ui->timer->clear();
-    ui->menu->clear();
-    control->stopTimer();
+    enableOKButton();                   //Enables the ok button
+    disableSkin();                      //Disables skin button
+    ui->contactSkin->setChecked(false); //Disables skin button selection
+    ui->timer->clear();                 //Clears the timer
+    ui->menu->clear();                  //Clears the old timer
+    control->stopTimer();               //Stops timer
+    /*
+     * If treatment was active then prompt the user to save or discard treatment.
+     */
     if(control->isTreatmentActive()==true){
        showSaveOption();
        ui->menu->setCurrentRow(0);
     }
-
+    /*
+     * Return to programs
+     */
     else if(prevMenu == "Programs"){
         showPrograms();
     }
+    /*
+     * Return to Frequency
+     */
     else if(prevMenu == "Frequency"){
         showFrequency();
     }
+    /*
+     * Return to History
+     */
     else if(prevMenu == "History"){
         ui->tableWidget->hide();
         ui->menu->setVisible(true);
         showHistory();
     }
+    /*
+     * Return to Main
+     */
     else if(prevMenu == "Main"){
         on_returnMenu_clicked();
     }
+    /*
+     * Return to Programs
+     */
     else if(prevMenu == "Allergy" || prevMenu == "Throat" || prevMenu == "Head" || prevMenu == "Hypotonia"){
         showPrograms();
     }
+    /*
+     * Return to Frequency
+     */
     else if(prevMenu == "10Hz" || prevMenu == "20Hz" || prevMenu == "60Hz" || prevMenu == "77Hz"){
         showFrequency();
     }
     prevMenu = "Main";
 }
 
+/*
+ *  Updates timer every time the QTimer sends a signal with the new time
+ */
 void MainWindow::updateBattery(int b)
 {
     ui->progressBar->setValue(b);
 }
 
+/*
+ * Simulates the contact skin feature
+ */
 void MainWindow::on_contactSkin_clicked()
 {
     if(ui->contactSkin->isChecked()){
@@ -422,22 +553,40 @@ void MainWindow::on_contactSkin_clicked()
         control->treatmentList[currTreatment]->stopTimer();
     }
 }
-
+/*
+ * Disables the OK button
+ */
 void MainWindow::disableOKButton()
 {
     ui->ok->setEnabled(false);
 }
-
+/*
+ * Enables the OK button
+ */
 void MainWindow::enableOKButton()
 {
     ui->ok->setEnabled(true);
 }
-
+/*
+ * Disables the skin radio button
+ */
 void MainWindow::disableSkin()
 {
       ui->contactSkin->setEnabled(false);
 }
+/*
+ * Enables the skin radio button
+ */
 void MainWindow::enableSkin()
 {
       ui->contactSkin->setEnabled(true);
+}
+/*
+ * Pop-up message indicating a treatment was saved.
+ */
+void MainWindow::showClearMessage()
+{
+    control->clearRecordings();
+    clearMenu.setText("Treatment recordings has been cleared");
+    clearMenu.exec();
 }

@@ -44,10 +44,20 @@ void Controller::connectTreatmentSignals()
     }
 }
 
+
 void Controller::updateBattery(int p)
 {
+    /*
+     * Since we do not want the device to be drained quickly we will only reduce the battery by power/2 if the power is greater than 10.
+     */
     checkIfBatteryIsZero();
-    batteryLife -= p;
+    if(p >= 10){
+        batteryLife -= (p/2);
+    }
+    else{
+        batteryLife -= p;
+    }
+
     emit changeGUIBattery(batteryLife);
 }
 
@@ -78,4 +88,8 @@ void Controller::endTreatment()
 void Controller::addRecording(Treatment *t){
     Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getTreatmentDurationTime());
     recordingList.push_back(r);
+}
+
+void Controller::clearRecordings(){
+    recordingList.clear();
 }
