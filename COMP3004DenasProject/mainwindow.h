@@ -46,7 +46,6 @@ private slots:
     void on_back_clicked();                        //Slot for the back menu button
     void updateBattery(int);                       //Slot for the update battery
     void on_contactSkin_clicked();                 //Slot for the contact skin button
-
     void on_turnOnOffDevice_clicked();
 
 private:

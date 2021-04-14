@@ -11,16 +11,16 @@ class Recording : public QObject
     Q_OBJECT
 public:
     explicit Recording(QObject *parent = nullptr);
-    Recording(QDateTime,QString,int,QString);
-    QString getDateTime();
-    QString getProgram();
-    QString getMaxPower();
-    QString getDuration();
+    Recording(QDateTime,QString,int,QString);       //constructor
+    QString getDateTime();                          //Getter for date and time
+    QString getProgram();                           //Getter for program name
+    QString getMaxPower();                          //Getter for max power
+    QString getDuration();                          //Getter for duration
 private:
-    QDateTime dateTime;
-    QString program;
-    int maxPower;
-    QString duration;
+    QDateTime dateTime;                             //Date obj
+    QString program;                                //Recording name
+    int maxPower;                                   //Recording power
+    QString duration;                               //Recording duration
 
 signals:
 
