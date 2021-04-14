@@ -435,6 +435,7 @@ void MainWindow::on_ok_clicked()
  */
 void MainWindow::turnOffDevice()
 {
+    ui->progressBar->setValue(0);
     control->stopTimer();
     ui->timer->setText(":(");
     on_turnOnOffDevice_clicked();
@@ -613,10 +614,17 @@ void MainWindow::showClearMessage()
  */
 void MainWindow::on_turnOnOffDevice_clicked()
 {
+    qDebug() << control->getBattery();
     if(deviceOn == false){
-        deviceOn = true;
-        ui->menu->show();
-        showMainMenu();
+        if(control->getBattery() <= 0){
+            clearMenu.setText("Device out of battery. Reload the software for full battery");
+            clearMenu.exec();
+        }
+        else{
+            deviceOn = true;
+            ui->menu->show();
+            showMainMenu();
+        }
     }
     else{
         deviceOn = false;

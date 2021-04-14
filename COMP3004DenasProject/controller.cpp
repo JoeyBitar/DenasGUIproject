@@ -99,3 +99,7 @@ void Controller::reset(){
         treatmentList[i]->restartTimer();
      }
 }
+
+int Controller::getBattery(){
+    return batteryLife;
+}
