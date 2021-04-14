@@ -33,6 +33,7 @@ public:
     void clearRecordings();
     bool checkIfBatteryIsZero();
     void reset();
+    int getBattery();
 
 signals:
     void requestTurnOffDevice();

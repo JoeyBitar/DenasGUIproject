@@ -55,7 +55,6 @@ QDateTime Treatment::takeDateScreenshot()
  */
 void Treatment::stopTimer()
 {
-    qDebug() <<"Stop timer";
     timerCaller->stop();
 }
 
