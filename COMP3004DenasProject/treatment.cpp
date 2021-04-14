@@ -1,3 +1,9 @@
+/*
+ * COMP3004 Project
+ * DENAS PCM project by Steven Rhodes, Aaron Fisher, Joey Bitar, Colin Marsh, Ben Herron
+ * Team 25
+ */
+
 #include "treatment.h"
 #include <QDebug>
 using namespace std;
@@ -25,10 +31,16 @@ Treatment::Treatment(QString programName, int powerLvl, int durationTime, int fr
     connect(timerCaller, SIGNAL(timeout()), this, SLOT(decrementTimer()));
 }
 
+/*
+ * Getter for program treatment name
+ */
 QString Treatment::getProgram(){
     return program;
 }
 
+/*
+ * GEtter for max power
+ */
 int Treatment::getMaxPower(){
     return maxPower;
 }
@@ -41,6 +53,9 @@ void Treatment::startTimer()
     timerCaller->start(1000);
 }
 
+/*
+ * Takes a screenshot and returns the date and time of whenever this function was called.
+ */
 QDateTime Treatment::takeDateScreenshot()
 {
     /*
@@ -80,7 +95,6 @@ void Treatment::decrementTimer()
     timerDuration = timerDuration.addSecs(+1);
 
     if(timer.toString("mm:ss") == "00:00"){
-        //Need to send a signal to the GUI indicating that the treatment is over.
         stopTimer();
          QMessageBox b;
          b.setText("Treatment completed");
@@ -88,6 +102,9 @@ void Treatment::decrementTimer()
     }
 }
 
+/*
+ * Sets the power level
+ */
 void Treatment::setPower(int p)
 {
     if(p>maxPower){
@@ -96,17 +113,26 @@ void Treatment::setPower(int p)
     power = p;
 }
 
+/*
+ * Restarts both timers
+ */
 void Treatment::restartTimer()
 {
     timer.setHMS(0,duration,0);
     timerDuration.setHMS(0,0,0);
 }
 
+/*
+ * Getter for the duration(how long the treatment has been going on for)
+ */
 QString Treatment::getDuration()
 {
     return timerDuration.toString("mm:ss");
 }
 
+/*
+ * Getter for the treatment frequency
+ */
 int Treatment::getFrequency()
 {
     return frequency;

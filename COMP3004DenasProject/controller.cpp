@@ -1,3 +1,9 @@
+/*
+ * COMP3004 Project
+ * DENAS PCM project by Steven Rhodes, Aaron Fisher, Joey Bitar, Colin Marsh, Ben Herron
+ * Team 25
+ */
+
 #include "controller.h"
 #include "recording.h"
 #include <QDebug>
@@ -6,6 +12,9 @@ Controller::Controller(QObject *parent) : QObject(parent)
 
 using namespace std;
 
+/*
+ * Sets default values
+ */
 Controller::Controller(int battery)
 {
     batteryLife = battery;
@@ -37,6 +46,9 @@ bool Controller::checkIfBatteryIsZero()
     return false;
 }
 
+/*
+ * COnnects all signals from the treatment Class
+ */
 void Controller::connectTreatmentSignals()
 {
     for(unsigned long i = 0; i < treatmentList.size(); i++){
@@ -44,7 +56,9 @@ void Controller::connectTreatmentSignals()
     }
 }
 
-
+/*
+ * Update the battery consuming.
+ */
 void Controller::updateBattery(int p)
 {
     /*
@@ -58,9 +72,13 @@ void Controller::updateBattery(int p)
         batteryLife -= p;
     }
 
+    //Send the current battery to the GUI so it can update the slider.
     emit changeGUIBattery(batteryLife);
 }
 
+/*
+ * Stop all timers for all treatments
+ */
 void Controller::stopTimer()
 {
     for(unsigned long i = 0; i < treatmentList.size(); i++){
@@ -68,38 +86,62 @@ void Controller::stopTimer()
      }
 }
 
+/*
+ * REturns true is a treatment is in process else false
+ */
 bool Controller::isTreatmentActive()
 {
     return treatmentActive;
 }
 
+/*
+ * Start a treatment.
+ * Sets the treatment flag to true
+ */
 void Controller::startTreatment()
 {
     qDebug() <<"treatmentActive = true";
     treatmentActive = true;
 }
 
+/*
+ * End a treatment
+ * Sets the treatment flag to false
+ */
 void Controller::endTreatment()
 {
     qDebug() <<"treatmentActive = false";
     treatmentActive = false;
 }
 
+/*
+ * Adds a treatment to the list of recordings
+ */
 void Controller::addRecording(Treatment *t){
     Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getDuration());
     recordingList.push_back(r);
 }
 
+/*
+ * Clears all recording history
+ */
 void Controller::clearRecordings(){
     recordingList.clear();
 }
 
+/*
+ * Restarts all timers from the treatment list.
+ * Used for when the device is turned off and back on
+ */
 void Controller::reset(){
     for(unsigned long i = 0; i < treatmentList.size(); i++){
         treatmentList[i]->restartTimer();
      }
 }
 
+/*
+ * Getter for the battery life.
+ */
 int Controller::getBattery(){
     return batteryLife;
 }

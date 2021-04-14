@@ -22,34 +22,33 @@ class Controller : public QObject
 public:
     explicit Controller(QObject *parent = nullptr);
     Controller(int);
-    std::vector<Treatment*> treatmentList;
-    std::vector<Recording*> recordingList;
-    void connectTreatmentSignals();
-    void stopTimer();
-    void startTreatment();
-    void endTreatment();
-    bool isTreatmentActive();
-    void addRecording(Treatment*);
-    void clearRecordings();
-    bool checkIfBatteryIsZero();
-    void reset();
-    int getBattery();
+    std::vector<Treatment*> treatmentList;  //Hold all the treatment settings.
+    std::vector<Recording*> recordingList;  //HOld a list of recording
+    void connectTreatmentSignals();     //Connects all the signals
+    void stopTimer();                   //Stop the timer
+    void startTreatment();              //Start a treatment
+    void endTreatment();                //End the treatment
+    bool isTreatmentActive();           //INdicate true if treatment is in process
+    void addRecording(Treatment*);      //Add a treatment to the recording history
+    void clearRecordings();             //Clear recording list
+    bool checkIfBatteryIsZero();        //CHeck if battery is 0
+    void reset();                       //Reset timer
+    int getBattery();                   //Getter for battery
 
 signals:
-    void requestTurnOffDevice();
-    void changeGUIBattery(int);
+    void requestTurnOffDevice();    //Emit to the gui to turn off device
+    void changeGUIBattery(int);     //Emit battery for the GUI
 
 private slots:
-    void updateBattery(int);
+    void updateBattery(int);        //Receive signal from treatment
 
 private:
-    void addRecordings(Treatment);
-    void calculateBatteryDrainage();
+    void addRecordings(Treatment);  //Add a treatment to the recording history
+    void calculateBatteryDrainage();//Calculate battery drainage
 
-
-    int batteryLife;
-    bool devicePower;
-    bool treatmentActive;
+    int batteryLife;                // Battery of the device
+    bool devicePower;               // Bool to indicate if device is on or off
+    bool treatmentActive;           // Bool to indicate if a treatment is in process.
 
 };
 
