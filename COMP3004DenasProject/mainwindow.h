@@ -35,6 +35,7 @@ public:
     void disableSkin();                             //Fixes the crash whenever the user presses contact skin.
     void enableSkin();                              //Fixes the crash whenever the user presses contact skin.
     void showClearMessage();                        //Display pop-up message
+    void resetLabel();
 
 private slots:
     void on_Up_clicked();                          //Slot for the up button

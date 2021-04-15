@@ -329,6 +329,7 @@ void MainWindow::on_ok_clicked()
         showMainMenu();
         disableSkin();
         prevMenu = "Main";
+        resetLabel();
     }
     /*
      * If user selects the "Discard Recording" menu. Discard the treatment and redirect user to main menu.
@@ -340,6 +341,7 @@ void MainWindow::on_ok_clicked()
         disableSkin();
         showMainMenu();
         prevMenu = "Main";
+        resetLabel();
     }
     /*
      * If user selects the "Return to Treatment" menu. Redirect user to the treatment.
@@ -372,6 +374,9 @@ void MainWindow::on_ok_clicked()
         control->treatmentList[0]->setPower(powerlevel);                                      //Sets the power level
         ui->powerSlider->setValue(powerlevel);                                                //Sets the power slider. Just for visual purposes.
         ui->frequencySlider->setValue(control->treatmentList[currTreatment]->getFrequency()); //Sets the frequency slider. Just for visual purposes.
+        ui->powerDisplay->setText(QString::number(powerlevel));
+        ui->frequencyDisplay->setText(QString::number(control->treatmentList[currTreatment]->getFrequency()));
+
         /*
          * For each treatment, sets its power level, and sets the timer widget.
          */
@@ -447,6 +452,7 @@ void MainWindow::turnOffDevice()
     on_turnOnOffDevice_clicked();
     clearMenu.setText("Device out of battery. Reload the software for full battery");
     clearMenu.exec();
+    resetLabel();
 }
 
 /*
@@ -490,6 +496,7 @@ void MainWindow::on_returnMenu_clicked()
         ui->tableWidget->hide();
         ui->menu->setVisible(true);
         showMainMenu();
+        resetLabel();
     }
 }
 
@@ -642,5 +649,11 @@ void MainWindow::on_turnOnOffDevice_clicked()
         ui->contactSkin->setChecked(false);
         disableSkin();
         enableOKButton();
+        resetLabel();
     }
+}
+
+void MainWindow::resetLabel(){
+    ui->powerDisplay->setText("");
+    ui->frequencyDisplay->setText("");
 }
