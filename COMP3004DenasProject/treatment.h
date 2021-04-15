@@ -16,6 +16,7 @@ class Treatment : public QObject
 public:
     explicit Treatment(QObject *parent = nullptr);
     Treatment(QString,int,int,int);
+    ~Treatment();
     void startTimer();                              //Starts the treatment timer
     void stopTimer();                               //Stops the treatment timer
     QString getTreatmentDurationTime();             //Returns the duration time left

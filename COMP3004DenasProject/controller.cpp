@@ -31,6 +31,14 @@ Controller::Controller(int battery)
     treatmentActive = false;
 }
 
+Controller::~Controller(){
+    for(unsigned long i = 0; i < treatmentList.size(); i++){
+       delete treatmentList[i];
+    }
+    for(unsigned long i = 0; i < recordingList.size(); i++){
+       delete recordingList[i];
+    }
+}
 
 /*
  * Checks if battery is zero, if so then emit signal to close the device.
@@ -126,6 +134,9 @@ void Controller::addRecording(Treatment *t){
  * Clears all recording history
  */
 void Controller::clearRecordings(){
+    for(unsigned long i = 0; i < recordingList.size(); i++){
+        delete recordingList[i];
+     }
     recordingList.clear();
 }
 
