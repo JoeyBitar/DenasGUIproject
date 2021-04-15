@@ -184,13 +184,15 @@ void MainWindow::showRecordings(){
     QTableWidgetItem *item1 = new QTableWidgetItem("Treatment",0);
     QTableWidgetItem *item2 = new QTableWidgetItem("Power",0);
     QTableWidgetItem *item3 = new QTableWidgetItem("Duration",0);
+    QTableWidgetItem *item4 = new QTableWidgetItem("Frequency",0);
     ui->tableWidget->setRowCount(control->recordingList.size() + 1);
-    ui->tableWidget->setColumnCount(4);
+    ui->tableWidget->setColumnCount(5);
 
     ui->tableWidget->setItem(0,0,item);
     ui->tableWidget->setItem(0,1,item1);
     ui->tableWidget->setItem(0,2,item2);
     ui->tableWidget->setItem(0,3,item3);
+    ui->tableWidget->setItem(0,4,item4);
     ui->tableWidget->show();
     for(int i=0;i< control->recordingList.size();i++){
         QTableWidgetItem *dateTime = new QTableWidgetItem(control->recordingList[i]->getDateTime(),0);
@@ -204,6 +206,9 @@ void MainWindow::showRecordings(){
 
         QTableWidgetItem *duration = new QTableWidgetItem(control->recordingList[i]->getDuration(),0);
         ui->tableWidget->setItem(i+1,3,duration);
+
+        QTableWidgetItem *frequency = new QTableWidgetItem(control->recordingList[i]->getFrequency(),0);
+        ui->tableWidget->setItem(i+1,4,frequency);
     }
 }
 

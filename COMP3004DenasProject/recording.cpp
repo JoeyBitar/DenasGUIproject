@@ -13,11 +13,12 @@ Recording::Recording(QObject *parent) : QObject(parent)
 /*
  * Sets default values
  */
-Recording::Recording(QDateTime date,QString p,int power,QString d){
+Recording::Recording(QDateTime date,QString p,int power,QString d, int f){
     dateTime = date;
     program = p;
     maxPower = power;
     duration = d;
+    frequency = f;
 }
 
 /*
@@ -49,4 +50,8 @@ QString Recording::getMaxPower(){
  */
 QString Recording::getDuration(){
     return duration;
+}
+
+QString Recording::getFrequency(){
+    return QString::number(frequency);
 }

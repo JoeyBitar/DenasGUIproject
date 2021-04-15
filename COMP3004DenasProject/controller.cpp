@@ -126,7 +126,7 @@ void Controller::endTreatment()
  * Adds a treatment to the list of recordings
  */
 void Controller::addRecording(Treatment *t){
-    Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getDuration());
+    Recording *r = new  Recording(t->takeDateScreenshot(),t->getProgram(),t->getMaxPower(),t->getDuration(),t->getFrequency());
     recordingList.push_back(r);
 }
 
