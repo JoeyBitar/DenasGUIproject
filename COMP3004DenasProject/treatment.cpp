@@ -31,6 +31,10 @@ Treatment::Treatment(QString programName, int powerLvl, int durationTime, int fr
     connect(timerCaller, SIGNAL(timeout()), this, SLOT(decrementTimer()));
 }
 
+Treatment::~Treatment(){
+    delete timerCaller;
+}
+
 /*
  * Getter for program treatment name
  */

@@ -22,6 +22,7 @@ class Controller : public QObject
 public:
     explicit Controller(QObject *parent = nullptr);
     Controller(int);
+    ~Controller();
     std::vector<Treatment*> treatmentList;  //Hold all the treatment settings.
     std::vector<Recording*> recordingList;  //HOld a list of recording
     void connectTreatmentSignals();     //Connects all the signals
