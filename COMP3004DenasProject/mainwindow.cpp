@@ -80,8 +80,6 @@ void MainWindow::showMainMenu(){
     ui->menu->addItem("Programs");
     ui->menu->addItem("Frequency");
     ui->menu->addItem("History");
-    ui->menu->addItem("Med");
-    ui->menu->addItem("Screening");
     ui->menu->setCurrentRow(0);
 }
 
